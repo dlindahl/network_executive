@@ -2,9 +2,27 @@
 
 An experimental application used to drive displays hung around an office.
 
+## Installation
+
+Add this line to your application's Gemfile:
+
+    gem 'network_executive'
+
+And then execute:
+
+    $ bundle
+
+Or install it yourself as:
+
+    $ gem install network_executive
+
+## Usage
+
+TODO: Write usage instructions here
+
 ## Network
 
-  A class that represents a server instance. This is what holds the channel-line up and serves content to the browser.
+A class that represents a server instance. This is what holds the channel-line up and serves content to the browser.
 
     var network = NetExec.createNetwork();
 
@@ -14,8 +32,8 @@ An experimental application used to drive displays hung around an office.
 
 #### Creating
 
-Each Network instance will respond to a POST to `/eas` with POST data that maps to a channel line-up. The provided URL will pre-empt any currently
-scheduled programming.
+Each Network instance will respond to a POST to `/eas` with POST data that maps to a channel line-up.
+The provided URL will pre-empt any currently scheduled programming.
 
 #### Configuring
 
@@ -100,4 +118,12 @@ While commercials are ignored, EAS messages will still pre-empt programming.
 * _Commericals / PSAs_ - The More You Know?
 * _Viewer_ - The client-side component. SSEs?
 * _Clicker_ - Client-side slide out remote to change channels/networks?
-* _On-Demand_ - Change to and stay at a specific channel. "Live" to exit.
+* _On-Demand_ - Change to and stay at a specific channel. "Live" to exit.* _On-Demand_ - Change to and stay at a specific channel. "Live" to exit.1
+
+## Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
