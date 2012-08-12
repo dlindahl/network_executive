@@ -19,5 +19,7 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency             'commander', '~> 4.1.0'
 
+  gem.add_development_dependency 'awesome_print'
   gem.add_development_dependency 'rspec',     '~> 2.11.0'
+  gem.add_development_dependency 'fakefs',    '~> 0.4.0'
 end
