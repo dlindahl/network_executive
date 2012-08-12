@@ -8,16 +8,17 @@ command :new do |c|
   c.syntax      = 'net_exec new [path]'
   c.description = 'Create a new Network Executive installation.'
   c.action do |args, options|
-    path = args.first
+    require 'network_executive/commands/application'
 
-    puts "Make new app in #{path}!"
+    NetworkExecutive::Application.new args.first
   end
 end
 
-command :start do |c|
-  c.syntax      = 'net_exec start'
+command :server do |c|
+  c.syntax      = 'net_exec server'
   c.description = 'Runs the Network Executive server.'
   c.action do |args, options|
-    puts 'Start all the things!'
+    require 'network_executive/commands/server'
+    NetworkExecutive::Server.start!
   end
 end
