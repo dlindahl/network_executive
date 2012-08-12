@@ -18,4 +18,6 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_dependency 'commander', '~> 4.1.0'
+
+  gem.add_development_dependency 'rspec',     '~> 2.11.0'
 end
