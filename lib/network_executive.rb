@@ -1,4 +1,4 @@
-require "network_executive/version"
+require 'network_executive/version'
 
 module NetworkExecutive
   # Your code goes here...
