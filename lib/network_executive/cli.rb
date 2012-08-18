@@ -11,7 +11,7 @@ command :new do |c|
   c.action do |args, options|
     require 'network_executive/commands/application'
 
-    NetworkExecutive::Application.new args.first
+    NetworkExecutive::Application.new( args.first ).build_app
   end
 end
 
@@ -21,6 +21,8 @@ command :server do |c|
 
   c.action do |args, options|
     require 'network_executive/commands/server'
+
+    ARGV.shift
 
     NetworkExecutive::Server.start!
   end

@@ -1,9 +1,15 @@
 require 'network_executive/commands/server'
 
 describe NetworkExecutive::Server do
+
   describe '.start!' do
-    it 'should create a Server instance' do
-      described_class.start!.should be_a described_class
+    before do
+      described_class.any_instance.stub(:start).and_return true
     end
+
+    subject { described_class.start! }
+
+    it { should be_a described_class }
   end
+
 end

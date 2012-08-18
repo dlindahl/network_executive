@@ -16,17 +16,22 @@ Or install it yourself as:
 
     $ gem install network_executive
 
+Create a new Network:
+
+    $ net_exec new [YOUR_NETWORK_NAME]
+
+This will create a new directory that matches your network name and populate it
+with an application scaffold.
+
+All that's left is to start building your network!
+
 ## Usage
 
-TODO: Write usage instructions here
+    $ net_exec server
 
 ## Network
 
 A class that represents a server instance. This is what holds the channel-line up and serves content to the browser.
-
-    var network = NetExec.createNetwork();
-
-    network.listen(80);
 
 ### EAS
 
