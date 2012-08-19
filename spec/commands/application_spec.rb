@@ -39,10 +39,6 @@ describe NetworkExecutive::Application do
       File.should exist 'test_network/config'
     end
 
-    it 'should create /config/test_network.rb' do
-      File.read('test_network/config/test_network.rb').should match 'TestNetwork < NetworkExecutive::Network'
-    end
-
     it 'should create /log' do
       File.should exist 'test_network/log/.gitkeep'
     end
@@ -51,8 +47,8 @@ describe NetworkExecutive::Application do
       File.should exist 'test_network/public'
     end
 
-    it 'should create /test_network/test_network.ru' do
-      File.read('test_network/test_network.ru').should match 'run TestNetwork'
+    it 'should create /test_network/Procfile' do
+      File.should exist 'test_network/Procfile'
     end
   end
 end

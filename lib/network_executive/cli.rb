@@ -19,6 +19,9 @@ command :server do |c|
   c.syntax      = 'net_exec server'
   c.description = 'Runs the Network Executive server.'
 
+  c.option '-e ENVIRONMENT', String,  'Specifies the environment to run this server under (test/development/production).'
+  c.option '-p PORT',        Integer, 'Runs Network Executive on the specified port. Default: 9000'
+
   c.action do |args, options|
     require 'network_executive/commands/server'
 

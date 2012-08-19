@@ -35,12 +35,8 @@ module NetworkExecutive
       directory 'public'
     end
 
-    def network
-      template 'config/my_network.rb', "config/#{name}.rb"
-    end
-
-    def rackup
-      template 'my_network.ru', "#{name}.ru"
+    def procfile
+      template 'Procfile', 'Procfile'
     end
 
     def build_app
@@ -51,8 +47,7 @@ module NetworkExecutive
       log
       public_directory
 
-      network
-      rackup
+      procfile
     end
 
     def self.source_root

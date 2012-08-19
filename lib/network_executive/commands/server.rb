@@ -1,44 +1,43 @@
-require 'rack/server'
-require 'rack/builder'
+require 'goliath/runner'
+require 'network_executive/network'
 
 module NetworkExecutive
 
-  class Server < Rack::Server
+  class Server < Goliath::Runner
 
-    def initialize(*)
+    def initialize( argv = [], api = nil )
       super
+
+      build_app
 
       yield self if block_given?
     end
 
     def start
-      puts "http://#{options[:Host]}:#{options[:Port]}"
-      puts "=> Booting Network Executive v#{NetworkExecutive::VERSION}"
+      # TODO: Why is this different from Goliath's log calls?
+      puts "http://#{address}:#{port}"
+      puts "=> Booting Network Executive v#{NetworkExecutive::VERSION} (#{Goliath.env})"
       trap(:INT) { exit }
       puts '=> Ctrl-C to shutdown server'
 
-      super
+      run
     ensure
       puts 'Exiting'
+      exit
+    end
+
+    def api
+      Network.new
     end
 
     def app
-      @app ||= super.respond_to?(:to_app) ? super.to_app : super
+      @app ||= Goliath::Rack::Builder.build api.class, api
     end
-
-    def default_options
-      rackup_file = Dir['*.ru'].first
-
-      super.merge({
-        Port:        3000,
-        environment: (ENV['RACK_ENV'] || 'development').dup,
-        config:      File.expand_path( rackup_file )
-      })
-    end
+    alias_method :build_app, :app
 
     class << self
       def start!
-        new do |server|
+        new( ARGV ) do |server|
           server.start
         end
       end
