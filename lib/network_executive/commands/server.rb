@@ -8,14 +8,12 @@ module NetworkExecutive
     def initialize( argv = [], api = nil )
       super
 
-      build_app
+      rack_it_up
 
       yield self if block_given?
     end
 
     def start
-      # TODO: Why is this different from Goliath's log calls?
-      puts "http://#{address}:#{port}"
       puts "=> Booting Network Executive v#{NetworkExecutive::VERSION} (#{Goliath.env})"
       trap(:INT) { exit }
       puts '=> Ctrl-C to shutdown server'
@@ -33,7 +31,7 @@ module NetworkExecutive
     def app
       @app ||= Goliath::Rack::Builder.build api.class, api
     end
-    alias_method :build_app, :app
+    alias_method :rack_it_up, :app
 
     class << self
       def start!
