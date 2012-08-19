@@ -2,7 +2,8 @@ require 'commander/import'
 
 program :name,        'Network Executive'
 program :version,     NetworkExecutive::VERSION
-program :description, 'An experimental application used to drive displays hung around an office.  '
+program :description, 'An experimental application used to drive displays hung around an office.'
+program :help,        'Author', 'Derek Lindahl <github.com/dlindahl>'
 
 command :new do |c|
   c.syntax      = 'net_exec new [path]'
