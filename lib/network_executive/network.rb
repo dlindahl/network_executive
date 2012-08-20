@@ -3,7 +3,7 @@ module NetworkExecutive
 
     use Rack::Static,
       index: 'index.html',
-      urls:  [ '/index.html' ],
+      urls:  [ '/index.html', '/stylesheets' ],
       root:  File.join( NetworkExecutive.root, 'public' )
 
     def process_sse( env )
@@ -14,7 +14,7 @@ module NetworkExecutive
 
     def response(env)
       case env['PATH_INFO']
-      when '/sse'
+      when '/tune_in'
         # run Viewer.new
         process_sse env
       else

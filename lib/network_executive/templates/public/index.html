@@ -1,8 +1,47 @@
+<!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
     <title>Network Executive: <%= name.to_s.humanize.titleize %></title>
+    <link rel="stylesheet" media="all" href="/stylesheets/normalize.css">
+    <link rel="stylesheet" media="all" href="/stylesheets/smpte.css">
+  </head>
+  <body>
+    <div id="smpte">
+      <section>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </section>
+      <section>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </section>
+      <section>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <div></div>
+      </section>
+    </div>
     <script>
-      var source = new EventSource('/sse');
+      var source = new EventSource('/tune_in');
 
       source.addEventListener('message', function(e) {
         console.log('[message]', e.data);
@@ -20,8 +59,5 @@
         }
       }, false);
     </script>
-  </head>
-  <body>
-    <h1>Network Executive: <%= name.to_s.humanize.titleize %></h1>
   </body>
 </html>
