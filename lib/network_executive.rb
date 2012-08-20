@@ -41,3 +41,4 @@ module NetworkExecutive
 end
 
 require 'network_executive/network'
+require 'network_executive/viewer'
