@@ -33,10 +33,15 @@ module NetworkExecutive
 
     def public_directory
       directory 'public'
+      template 'public/index.html', 'public/index.html'
     end
 
     def procfile
       template 'Procfile', 'Procfile'
+    end
+
+    def gitignore
+      template '.gitignore', '.gitignore'
     end
 
     def build_app
@@ -48,6 +53,7 @@ module NetworkExecutive
       public_directory
 
       procfile
+      gitignore
     end
 
     def self.source_root

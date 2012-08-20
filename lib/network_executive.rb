@@ -1,5 +1,6 @@
+require 'goliath'
+
 require 'network_executive/version'
-require 'network_executive/network'
 
 module NetworkExecutive
 
@@ -37,5 +38,6 @@ module NetworkExecutive
     end
 
   end
-
 end
+
+require 'network_executive/network'

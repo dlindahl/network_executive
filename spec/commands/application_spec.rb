@@ -1,4 +1,3 @@
-require 'fakefs/spec_helpers'
 require 'network_executive/commands/application'
 
 describe NetworkExecutive::Application do
@@ -43,8 +42,12 @@ describe NetworkExecutive::Application do
       File.should exist 'test_network/log/.gitkeep'
     end
 
-    it 'should create /public' do
-      File.should exist 'test_network/public'
+    it 'should create /test_network/public/index.html' do
+      File.read('test_network/public/index.html').should match 'Network Executive: Test Network'
+    end
+
+    it 'should create /test_network/.gitignore' do
+      File.should exist 'test_network/.gitignore'
     end
 
     it 'should create /test_network/Procfile' do

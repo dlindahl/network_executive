@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>Network Executive: <%= name.to_s.humanize.titleize %></title>
+    <script>
+      var source = new EventSource('/sse');
+
+      source.addEventListener('message', function(e) {
+        console.log('[message]', e.data);
+      }, false);
+
+      source.addEventListener('open', function(e) {
+        // Connection was opened.
+        console.log('[open]', e)
+      }, false);
+
+      source.addEventListener('error', function(e) {
+        if (e.eventPhase == EventSource.CLOSED) {
+          console.log('[error]', e)
+          // Connection was closed.
+        }
+      }, false);
+    </script>
+  </head>
+  <body>
+    <h1>Network Executive: <%= name.to_s.humanize.titleize %></h1>
+  </body>
+</html>
