@@ -1,113 +1,136 @@
 /* Renders an SMPTE Test Pattern */
-/* NOTE: This doesn't work 100% perfectly in FF for some reason */
-/* TODO: Redo this in CSS gradients */
 html, body {
   width: 100%;
   height: 100%;
 }
-#smpte {
-  height: 100%;
-}
-#smpte section {
-  width: 100%;
-  display: -webkit-box;
-  display: -moz-box;
-  display: box;
-}
-#smpte section div {
-  -webkit-box-flex: 1;
-     -moz-box-flex: 1;
-          box-flex: 1;
-}
-#smpte section:nth-child(1) {
-  height: 67%;
-}
-#smpte section:nth-child(2) {
-  height: 8%;
-}
-#smpte section:nth-child(3) {
-  height: 25%;
-}
 
 /* Row #1 */
-#smpte section:nth-child(1) div:nth-child(1) {
-  background: #c0c0c0;
+#smpte:before {
+  content: '';
+  position: absolute;
+  right: 0;
+  left: 0;
+  height: 67%;
+  background: -moz-linear-gradient(
+    left,
+    #c0c0c0 0%,
+    #c0c0c0 14.285%,
+    #c0c000 14.285%,
+    #c0c000 28.57%,
+    #00c0c0 28.57%,
+    #00c0c0 42.855%,
+    #00c000 42.855%,
+    #00c000 57.14%,
+    #c000c0 57.14%,
+    #c000c0 71.425%,
+    #c00000 71.425%,
+    #c00000 85.71%,
+    #0000bc 85.71%,
+    #0000bc 100%
+  );
+  background: -webkit-gradient(
+    linear, left top, right top,
+      color-stop(0%,     #c0c0c0),
+      color-stop(14.285%,#c0c0c0),
+      color-stop(14.285%,#c0c000),
+      color-stop(28.57%, #c0c000),
+      color-stop(28.57%, #00c0c0),
+      color-stop(42.855%,#00c0c0),
+      color-stop(42.855%,#00c000),
+      color-stop(57.14%, #00c000),
+      color-stop(57.14%, #c000c0),
+      color-stop(71.425%,#c000c0),
+      color-stop(71.425%,#c00000),
+      color-stop(85.71%, #c00000),
+      color-stop(85.71%, #0000bc),
+      color-stop(100%,   #0000bc)
+    );
 }
-#smpte section:nth-child(1) div:nth-child(2) {
-  background: #c0c000;
-}
-#smpte section:nth-child(1) div:nth-child(3) {
-  background: #00c0c0;
-}
-#smpte section:nth-child(1) div:nth-child(4) {
-  background: #00c000;
-}
-#smpte section:nth-child(1) div:nth-child(5) {
-  background: #c000c0;
-}
-#smpte section:nth-child(1) div:nth-child(6) {
-  background: #c00000;
-}
-#smpte section:nth-child(1) div:nth-child(7) {
-  background: #0000bc;
-}
-
 /* Row #2 */
-#smpte section:nth-child(2) div:nth-child(1) {
-  background: #0000c0;
+#smpte {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: -moz-linear-gradient(
+    left,
+    #0000c0 0%,
+    #0000c0 14.285%,
+    #131313 14.285%,
+    #131313 28.57%,
+    #c000c0 28.57%,
+    #c000c0 42.855%,
+    #131313 42.855%,
+    #131313 57.14%,
+    #00c0c0 57.14%,
+    #00c0c0 71.425%,
+    #131313 71.425%,
+    #131313 85.71%,
+    #c0c0c0 85.71%,
+    #c0c0c0 100%
+  );
+  background: -webkit-gradient(
+    linear, left top, right top,
+      color-stop(0%,     #0000c0),
+      color-stop(14.285%,#0000c0),
+      color-stop(14.285%,#131313),
+      color-stop(28.57%, #131313),
+      color-stop(28.57%, #c000c0),
+      color-stop(42.855%,#c000c0),
+      color-stop(42.855%,#131313),
+      color-stop(57.14%, #131313),
+      color-stop(57.14%, #00c0c0),
+      color-stop(71.425%,#00c0c0),
+      color-stop(71.425%,#131313),
+      color-stop(85.71%, #131313),
+      color-stop(85.71%, #c0c0c0),
+      color-stop(100%,   #c0c0c0)
+    );
 }
-#smpte section:nth-child(2) div:nth-child(2) {
-  background: #131313;
-}
-#smpte section:nth-child(2) div:nth-child(3) {
-  background: #c000c0;
-}
-#smpte section:nth-child(2) div:nth-child(4) {
-  background: #131313;
-}
-#smpte section:nth-child(2) div:nth-child(5) {
-  background: #00c0c0;
-}
-#smpte section:nth-child(2) div:nth-child(6) {
-  background: #131313;
-}
-#smpte section:nth-child(2) div:nth-child(7) {
-  background: #c0c0c0;
-}
-
-
-/* Row #3 */
-#smpte section:nth-child(3) > div:nth-child(1) {
-  background: #00214c;
-}
-#smpte section:nth-child(3) > div:nth-child(2) {
-  background: #ffffff;
-}
-#smpte section:nth-child(3) > div:nth-child(3) {
-  background: #32006a;
-}
-#smpte section:nth-child(3) > div:nth-child(4) {
-  background: #131313;
-}
-#smpte section:nth-child(3) > div:nth-child(5) {
-  display: -webkit-box;
-  display: -moz-box;
-  display: box;
-}
-#smpte section:nth-child(3) > div:nth-child(5) > div {
-  -webkit-box-flex: 1;
-     -moz-box-flex: 1;
-          box-flex: 1;
-}
-#smpte section:nth-child(3) > div:nth-child(5) > div:nth-child(1) {
-  background: #000;
-}
-#smpte section:nth-child(3) > div:nth-child(5) > div:nth-child(2) {
-  background: #131313;
-}
-#smpte section:nth-child(3) > div:nth-child(5) > div:nth-child(3) {
-  background: #1d1d1d;
-}
-#smpte section:nth-child(3) > div:nth-child(6) {
-  background: #131313;
+#smpte:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 25%;
+  background: -moz-linear-gradient(
+    left,
+    #00214c 0%,
+    #00214c 16.667%,
+    #ffffff 16.667%,
+    #ffffff 33.334%,
+    #32006a 33.334%,
+    #32006a 50.001%,
+    #131313 50.001%,
+    #131313 66.668%,
+    #000    66.668%,
+    #000    72.225%,
+    #131313 72.225%,
+    #131313 77.78%,
+    #1d1d1d 77.78%,
+    #1d1d1d 83.335%,
+    #131313 83.335%,
+    #131313 100%
+  );
+  background: -webkit-gradient(
+    linear, left top, right top,
+      color-stop(0%,     #00214c),
+      color-stop(16.667%,#00214c),
+      color-stop(16.667%,#ffffff),
+      color-stop(33.334%,#ffffff),
+      color-stop(33.334%,#32006a),
+      color-stop(50.001%,#32006a),
+      color-stop(50.001%,#131313),
+      color-stop(66.668%,#131313),
+      color-stop(66.668%,#000),
+      color-stop(72.225%,#000),
+      color-stop(72.225%,#131313),
+      color-stop(77.78%, #131313),
+      color-stop(77.78%, #1d1d1d),
+      color-stop(83.335%,#1d1d1d),
+      color-stop(83.335%,#131313),
+      color-stop(100%,   #131313)
+    );
 }
