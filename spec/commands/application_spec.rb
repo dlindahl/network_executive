@@ -30,8 +30,12 @@ describe NetworkExecutive::Application do
       described_class.new( 'test_network' ).build_app
     end
 
-    it 'should create /app' do
-      File.should exist 'test_network/app'
+    it 'should create /app/channels/.gitkeep' do
+      File.should exist 'test_network/app/channels/.gitkeep'
+    end
+
+    it 'should create /app/programs/.gitkeep' do
+      File.should exist 'test_network/app/programs/.gitkeep'
     end
 
     it 'should create /config' do
@@ -44,6 +48,14 @@ describe NetworkExecutive::Application do
 
     it 'should create /test_network/public/index.html' do
       File.read('test_network/public/index.html').should match 'Network Executive: Test Network'
+    end
+
+    it 'should create /test_network/public/stylesheets' do
+      File.should exist 'test_network/public/stylesheets'
+    end
+
+    it 'should create /test_network/public/javascripts' do
+      File.should exist 'test_network/public/javascripts'
     end
 
     it 'should create /test_network/.gitignore' do

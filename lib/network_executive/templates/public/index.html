@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width">
     <title>Network Executive: <%= name.to_s.humanize.titleize %></title>
     <link rel="stylesheet" media="all" href="/stylesheets/normalize.css">
+    <link rel="stylesheet" media="all" href="/stylesheets/gui_components.css">
     <link rel="stylesheet" media="all" href="/stylesheets/smpte.css">
   </head>
   <body>
+    <iframe id="program" class="gui-comp"></iframe>
     <div id="smpte">
       <section>
         <div></div>
@@ -40,24 +42,6 @@
         <div></div>
       </section>
     </div>
-    <script>
-      var source = new EventSource('/tune_in');
-
-      source.addEventListener('message', function(e) {
-        console.log('[message]', e.data);
-      }, false);
-
-      source.addEventListener('open', function(e) {
-        // Connection was opened.
-        console.log('[open]', e)
-      }, false);
-
-      source.addEventListener('error', function(e) {
-        if (e.eventPhase == EventSource.CLOSED) {
-          console.log('[error]', e)
-          // Connection was closed.
-        }
-      }, false);
-    </script>
+    <script src="/javascripts/set_top_box.js"></script>
   </body>
 </html>

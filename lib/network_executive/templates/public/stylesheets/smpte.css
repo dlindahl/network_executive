@@ -1,12 +1,12 @@
 /* Renders an SMPTE Test Pattern */
 /* NOTE: This doesn't work 100% perfectly in FF for some reason */
+/* TODO: Redo this in CSS gradients */
 html, body {
   width: 100%;
   height: 100%;
 }
 #smpte {
   height: 100%;
-  background: #000;
 }
 #smpte section {
   width: 100%;

@@ -42,3 +42,11 @@ end
 
 require 'network_executive/network'
 require 'network_executive/viewer'
+require 'network_executive/channel'
+require 'network_executive/program'
+
+# Bootstrap a Network's Channels
+# TODO: Get this into an initializer or something?
+Dir[ "#{NetworkExecutive.root}/app/**/*.rb" ].each do |component|
+  require component
+end

@@ -1,8 +1,8 @@
 require 'goliath/runner'
 require 'network_executive/network'
+require 'network_executive/plugins/producer'
 
 module NetworkExecutive
-
   class Server < Goliath::Runner
 
     def initialize( argv = [], api = nil )
@@ -25,7 +25,7 @@ module NetworkExecutive
     end
 
     def api
-      Network.new
+      @api ||= Network.new
     end
 
     def app
@@ -36,6 +36,8 @@ module NetworkExecutive
     class << self
       def start!
         new( ARGV ) do |server|
+          # TODO: Remove once `plugin` works
+          server.plugins = [ [NetworkExecutive::Producer, []] ]
           server.start
         end
       end
