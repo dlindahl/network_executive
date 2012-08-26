@@ -5,6 +5,7 @@ require 'network_executive/version'
 module NetworkExecutive
 
   class ProgramNameError < StandardError; end
+  class ProgramNotFoundError < StandardError; end
 
   class << self
     def env

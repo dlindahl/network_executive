@@ -2,7 +2,7 @@ require 'network_executive/behaviors/scheduling'
 
 module NetworkExecutive
   class Channel < EventMachine::Channel
-    extend Scheduling
+    include Scheduling
 
     # Example
     # every :monday, play:'morning_show'
@@ -15,13 +15,12 @@ module NetworkExecutive
       self.class.name.demodulize.underscore
     end
 
-    def show( program_name )
+    def show( scheduled_program )
       program = Network.programming.find do |p|
-        p.name == program_name
+        p.name == scheduled_program.program_name
       end
 
-      # TODO: Test
-      # raise ProgramNotFound unless program
+      raise ProgramNotFoundError unless program
 
       push program.play
     end

@@ -2,15 +2,30 @@ module NetworkExecutive
   class Producer
     def initialize( port, config, status, logger ); end
 
-    # NOTE: Brain dead implementation of a mechanism to drive the client.
     def run
-      programs = Network.programming.dup
+      # Run whatever should be on right now
+      run_scheduled_programming
 
-      EM.add_periodic_timer(10) do
-        # TODO: Refactor (demeter)
-        Network.channels.first.show programs.first.name
+      now = Time.now
 
-        programs.reverse!
+      next_tick = ( now.change( sec:0 ) + 1.minute ) - now
+
+      # Wait for the next 1-minute interval
+      EM.add_timer( next_tick ) do
+        run_scheduled_programming
+
+        # Setup the main 1-minute loop
+        EM.add_periodic_timer( 60 ) do
+          run_scheduled_programming
+        end
+      end
+    end
+
+    def run_scheduled_programming
+      channel = Network.channels.first
+
+      if scheduled_program = channel.whats_on?
+        channel.show scheduled_program
       end
     end
   end
