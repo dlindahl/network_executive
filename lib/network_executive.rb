@@ -4,6 +4,8 @@ require 'network_executive/version'
 
 module NetworkExecutive
 
+  class ProgramNameError < StandardError; end
+
   class << self
     def env
       Goliath.env.to_s

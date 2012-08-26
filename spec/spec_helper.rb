@@ -4,6 +4,7 @@ require 'rubygems'
 require 'bundler/setup'
 require 'awesome_print'
 require 'fakefs/spec_helpers'
+require 'timecop'
 
 
 RSpec.configure do |config|
