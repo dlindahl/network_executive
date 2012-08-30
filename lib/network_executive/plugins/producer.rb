@@ -22,10 +22,10 @@ module NetworkExecutive
     end
 
     def run_scheduled_programming
-      channel = Network.channels.first
-
-      if scheduled_program = channel.whats_on?
-        channel.show scheduled_program
+      Network.channels.each do |channel|
+        if scheduled_program = channel.whats_on?
+          channel.show scheduled_program
+        end
       end
     end
   end
