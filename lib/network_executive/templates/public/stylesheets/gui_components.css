@@ -1,3 +1,7 @@
+body {
+  text-rendering: optimizeLegibility;
+}
+
 .gui-comp {
   position: absolute;
   top: 0;
