@@ -125,6 +125,12 @@ While commercials are ignored, EAS messages will still pre-empt programming.
 * _Clicker_ - Client-side slide out remote to change channels/networks?
 * _On-Demand_ - Change to and stay at a specific channel. "Live" to exit.* _On-Demand_ - Change to and stay at a specific channel. "Live" to exit.1
 
+## TODO
+
+* Raise an exception if there are no channels to ease bootstrapping for new users
+* Swap out jQuery for Zepto?
+* Add http://brad.is/coding/BigScreen/
+
 ## Contributing
 
 1. Fork it
