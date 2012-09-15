@@ -53,6 +53,15 @@ html, body {
   right: 0;
   bottom: 0;
   left: 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-pack: center;
+  -moz-box-align: center;
+
   background: -moz-linear-gradient(
     left,
     #0000c0 0%,
@@ -133,4 +142,23 @@ html, body {
       color-stop(83.335%,#131313),
       color-stop(100%,   #131313)
     );
+}
+
+#smpte .msg {
+  position: relative;
+  z-index: 100;
+  padding: .2em .4em;
+  color: #fff;
+  background: #000;
+  font-size: 7vmin;
+  font-family: 'Lekton';
+}
+#smpte .network-name {
+  position: relative;
+  z-index: 100;
+  padding: .2em .4em;
+  color: #fff;
+  background: #000;
+  font-size: 6vmin;
+  font-family: 'Lekton';
 }

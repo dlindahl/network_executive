@@ -1,4 +1,5 @@
 require 'network_executive/plugins/producer'
+require 'network_executive/lineup'
 
 module NetworkExecutive
   class Network < Goliath::API
@@ -32,6 +33,8 @@ module NetworkExecutive
         Viewer.change_channel id, env
       when 'channels'
         render 'public/index.html'
+      when 'lineup'
+        [ 200, { 'Content-Type' => 'application/json' }, Lineup.new.to_json ]
       else
         raise Goliath::Validation::NotFoundError
       end

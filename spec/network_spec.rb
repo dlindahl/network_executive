@@ -67,4 +67,14 @@ describe NetworkExecutive::Network do
       described_class.tune_in_to 'my_channel', {}
     end
   end
+
+  it 'should respond to /lineup' do
+    NetworkExecutive::Lineup.should_receive( :new ).and_return double('lineup').as_null_object
+
+    with_api( described_class ) do
+      get_request( { path:'/lineup' }, err ) do |c|
+        c.response_header.should include 'CONTENT_TYPE' => 'application/json'
+      end
+    end
+  end
 end

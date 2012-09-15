@@ -5,7 +5,8 @@ describe NetworkExecutive::Channel do
 
   subject { MyChannel.new }
 
-  its(:name) { should == 'my_channel' }
+  its(:name)         { should == 'my_channel' }
+  its(:display_name) { should == 'my channel' }
 
   describe '#show' do
     context 'for a program that exists' do

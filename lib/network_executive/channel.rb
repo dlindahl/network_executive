@@ -15,6 +15,10 @@ module NetworkExecutive
       self.class.name.demodulize.underscore
     end
 
+    def display_name
+      name.gsub %r{_}, ' '
+    end
+
     def show( scheduled_program )
       program = Network.programming.find do |p|
         p.name == scheduled_program.program_name

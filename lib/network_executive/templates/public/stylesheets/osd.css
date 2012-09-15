@@ -1,0 +1,33 @@
+#osd {
+  opacity: 0;
+  padding: 1em;
+  background: rgba(0,0,0,0.75);
+  color: #fff;
+  z-index: 900;
+  font-family: 'Quicksand';
+  -webkit-transition: opacity .25s ease-in;
+     -moz-transition: opacity .25s ease-in;
+         -transition: opacity .25s ease-in;
+}
+#osd.active {
+  opacity: 1;
+}
+#osd header {
+  overflow: auto;
+}
+#osd .network-name {
+  font-size: 5vmin;
+  font-weight: normal;
+}
+#osd a {
+  color: #fff;
+  text-decoration: none;
+}
+.osd-now {
+  float: right;
+  padding-top: .35em;
+  font-size: 2.5vmin;
+}
+.osd-now-date {
+  display: block;
+}
