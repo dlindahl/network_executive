@@ -3,16 +3,17 @@ ENV['RAILS_ENV'] ||= 'test'
 
 require 'rubygems'
 require 'bundler/setup'
-# require 'awesome_print'
-require 'fakefs/spec_helpers'
-# require 'timecop'
+
+require 'awesome_print'
 
 require File.expand_path( '../dummy/config/environment.rb',  __FILE__ )
 
 require 'rails/test_help'
+require 'rspec/rails'
+require 'fakefs/spec_helpers'
+require 'timecop'
 
 Rails.backtrace_cleaner.remove_silencers!
-
 
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true

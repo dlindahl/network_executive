@@ -22,9 +22,11 @@ Gem::Specification.new do |gem|
   gem.add_dependency             'activesupport',   '~> 3.2.0'
   # gem.add_dependency             'em-http-request', '~> 1.0.3'
 
+  gem.add_runtime_dependency     'sass-rails',      '~> 3.2'
+
   gem.add_development_dependency 'awesome_print'
   gem.add_development_dependency 'rails',           '~> 3.2.8'
-  gem.add_development_dependency 'rspec',           '~> 2.11.0'
+  gem.add_development_dependency 'rspec-rails',     '~> 2.11'
   gem.add_development_dependency 'fakefs',          '~> 0.4.0'
   gem.add_development_dependency 'timecop',         '~> 0.4.5'
 end
