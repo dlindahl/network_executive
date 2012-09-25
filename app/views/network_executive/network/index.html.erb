@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>Network Executive: <%#= name.to_s.humanize.titleize %></title>
+    <title>Network Executive: <%= network_name %></title>
     <link href='//fonts.googleapis.com/css?family=Lekton:400,700|Quicksand:300,400,700' rel='stylesheet' type='text/css'>
     <%= stylesheet_link_tag    'network_executive/application', media:'all' %>
   </head>
@@ -11,12 +11,12 @@
     <iframe id="program" class="gui-comp"></iframe>
     <div id="smpte">
       <h1 id="smpte_message" class="msg"></h1>
-      <aside class="network-name"><%#= name.to_s.humanize.titleize %></aside>
+      <aside class="network-name"><%= network_name %></aside>
     </div>
     <div id="osd" class="gui-comp">
       <header>
         <h1 class="network-name">
-          <%#= name.to_s.humanize.titleize %>
+          <%= network_name %>
           <aside class="osd-now">
             <time>0:00am</time>
             <small class="osd-now-date">January 1, 1970</small>
