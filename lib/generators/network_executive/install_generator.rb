@@ -46,7 +46,7 @@ module NetworkExecutive
 
         mount_at = ask("  Press <enter> for [/#{default_mount_location}] >").presence || default_mount_location
 
-        mount_at = '' if mount_at == '/'
+        mount_at = sanitize mount_at
 
         route "mount NetworkExecutive::Engine => '/#{mount_at}', as:'network_executive'"
       end
@@ -54,6 +54,14 @@ module NetworkExecutive
 
     def mounted?
       routes =~ %r{mount NetworkExecutive::Engine}
+    end
+
+    def sanitize( path )
+      if path == '/'
+        ''
+      else
+        path.gsub %r{\A/}, ''
+      end
     end
 
     def routes
