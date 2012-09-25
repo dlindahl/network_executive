@@ -1,15 +1,21 @@
-;(function() {
+;(function($) {
   var autoHideTimer = null;
 
+  var osd = document.getElementById('osd');
+
   var autoHide = function() {
-    $('#osd.active').removeClass('active');
+    if( osd.classList.contains('active') ) {
+      osd.classList.remove('active');
+    }
   };
 
   // detect mouse movement and scale display
-  $(document).on('mousemove', function(e) {
+  document.addEventListener('mousemove', function(e) {
     clearTimeout( autoHideTimer );
 
-    $('#osd:not(.active)').addClass('active');
+    if( !osd.contains('active') ) {
+      osd.classList.add('active');
+    }
 
     autoHideTimer = setTimeout(autoHide, 1000);
   });
@@ -33,8 +39,8 @@
 
     date = months[mon] + ' ' + d + ', ' + y;
 
-    $('.osd-now-time').html( time );
-    $('.osd-now-date').html( date );
+    // $('.osd-now-time')[0].innerHTML = time;
+    // $('.osd-now-date')[0].innerHTML = date;
   }, 1000);
 
-})();
+})( document.querySelectorAll.bind(document) );
