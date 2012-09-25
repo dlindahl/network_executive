@@ -16,3 +16,9 @@ spec/reports
 test/tmp
 test/version_tmp
 tmp
+
+# Dummy Rails App for testing
+log/*.log
+spec/dummy/log/*.log
+spec/dummy/tmp/
+spec/dummy/.sass-cache

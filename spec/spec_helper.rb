@@ -1,10 +1,17 @@
-ENV['RACK_ENV'] ||= 'test'
+ENV['RACK_ENV']  ||= 'test'
+ENV['RAILS_ENV'] ||= 'test'
 
 require 'rubygems'
 require 'bundler/setup'
-require 'awesome_print'
+# require 'awesome_print'
 require 'fakefs/spec_helpers'
-require 'timecop'
+# require 'timecop'
+
+require File.expand_path( '../dummy/config/environment.rb',  __FILE__ )
+
+require 'rails/test_help'
+
+Rails.backtrace_cleaner.remove_silencers!
 
 
 RSpec.configure do |config|
@@ -22,6 +29,3 @@ RSpec.configure do |config|
     FakeFS.deactivate!
   end
 end
-
-require 'network_executive'
-require 'goliath/test_helper'

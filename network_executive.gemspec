@@ -1,7 +1,5 @@
 # -*- encoding: utf-8 -*-
-lib = File.expand_path('../lib', __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'network_executive/version'
+require File.expand_path('../lib/network_executive/version', __FILE__)
 
 Gem::Specification.new do |gem|
   gem.name          = "network_executive"
@@ -19,12 +17,13 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  gem.add_dependency             'commander',       '~> 4.1.0'
-  gem.add_dependency             'goliath',         '~> 1.0.0'
+  # gem.add_dependency             'commander',       '~> 4.1.0'
+  # gem.add_dependency             'goliath',         '~> 1.0.0'
   gem.add_dependency             'activesupport',   '~> 3.2.0'
-  gem.add_dependency             'em-http-request', '~> 1.0.3'
+  # gem.add_dependency             'em-http-request', '~> 1.0.3'
 
   gem.add_development_dependency 'awesome_print'
+  gem.add_development_dependency 'rails',           '~> 3.2.8'
   gem.add_development_dependency 'rspec',           '~> 2.11.0'
   gem.add_development_dependency 'fakefs',          '~> 0.4.0'
   gem.add_development_dependency 'timecop',         '~> 0.4.5'
