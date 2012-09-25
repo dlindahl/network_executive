@@ -39,8 +39,8 @@
 
     date = months[mon] + ' ' + d + ', ' + y;
 
-    // $('.osd-now-time')[0].innerHTML = time;
-    // $('.osd-now-date')[0].innerHTML = date;
+    $('.osd-now-time')[0].innerHTML = time;
+    $('.osd-now-date')[0].innerHTML = date;
   }, 1000);
 
 })( document.querySelectorAll.bind(document) );
