@@ -27,7 +27,7 @@
     source.addEventListener('error', function(e) {
       if (e.eventPhase == EventSource.CLOSED) {
         console.log('[error]', e);
-        document.getElementById('smpte_message').innerHTML = 'Tranmission lost...';
+        document.getElementById('smpte_message').innerHTML = 'Transmission lost...';
         document.getElementById('program').setAttribute('src', 'about:blank');
         // Move this functionality to a class for better cross-browser support
         document.getElementById('smpte').style.display = '-webkit-box';
