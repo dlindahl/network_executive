@@ -1,1 +1,0 @@
-web: bundle exec net_exec server -e production -p $PORT
