@@ -1,9 +1,5 @@
 require 'active_support/concern'
 
-require 'network_executive/program_schedule'
-require 'network_executive/lineup_range'
-require 'network_executive/channel_schedule'
-
 module NetworkExecutive
   module Scheduling
     extend ActiveSupport::Concern
