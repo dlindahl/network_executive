@@ -1,5 +1,3 @@
-require 'active_support/time'
-require 'active_support/core_ext/time/calculations'
 
     # Example
     # every :monday, play:'morning_show'
