@@ -28,5 +28,10 @@ RSpec.configure do |config|
 
   config.after do
     FakeFS.deactivate!
+
+    Timecop.return
+
+    NetworkExecutive::Network.channels.clear
+    NetworkExecutive::Network.programming.clear
   end
 end

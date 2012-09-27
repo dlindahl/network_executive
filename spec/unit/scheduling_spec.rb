@@ -2,7 +2,7 @@ describe NetworkExecutive::Scheduling do
 
   describe '.every' do
     it 'should schedule the program' do
-      channel = Class.new( MyChannel ) do
+      channel = Class.new( NetworkExecutive::Channel ) do
         include NetworkExecutive::Scheduling
 
         every :day, play:'my_show'
@@ -14,7 +14,7 @@ describe NetworkExecutive::Scheduling do
 
   describe 'schedule' do
     it 'should be a ChannelSchedule' do
-      channel = Class.new( MyChannel ) do
+      channel = Class.new( NetworkExecutive::Channel ) do
         include NetworkExecutive::Scheduling
       end
 
@@ -24,7 +24,7 @@ describe NetworkExecutive::Scheduling do
 
   describe '#whats_on?' do
     let(:channel) do
-      Class.new( MyChannel ) do
+      Class.new( NetworkExecutive::Channel ) do
         include NetworkExecutive::Scheduling
       end
     end
@@ -75,25 +75,27 @@ describe NetworkExecutive::Scheduling do
   end
 
   describe '#with_showtimes_between' do
-    let(:channel) do
-      Class.new( MyChannel ) do
+    let(:klass) do
+      Class.new( NetworkExecutive::Channel ) do
         include NetworkExecutive::Scheduling
 
         every :day, play:'my_show'
-      end.new
+      end
     end
+
+    let(:channel) { klass.new }
 
     subject do
       program_a = double 'program_a', include?: true
 
       channel.schedule.add program_a
 
-      channel.with_showtimes_between( 1.hour.ago, 1.hour.from_now ) do |showtime, program|
+      range = [ 1.hour.ago, 1.hour.from_now ]
+
+      channel.with_showtimes_between( *range ) do |showtime, program|
         'block retval'
       end
     end
-
-    it { should be_a Array }
 
     it 'should contain the blocks return value' do
       subject.all?{ |x| x == 'block retval' }.should be_true

@@ -1,6 +1,12 @@
 describe NetworkExecutive::Channel do
 
-  MyChannel = Class.new( NetworkExecutive::Channel )
+  let(:klass) do
+    Class.new described_class
+  end
+
+  before do
+    stub_const 'MyChannel', klass
+  end
 
   subject { MyChannel.new }
 

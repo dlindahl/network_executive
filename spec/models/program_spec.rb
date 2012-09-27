@@ -1,6 +1,11 @@
 describe NetworkExecutive::Program do
 
-  class MyProgram < NetworkExecutive::Program
+  let(:klass) do
+    Class.new described_class
+  end
+
+  before do
+    stub_const 'MyProgram', klass
   end
 
   subject { MyProgram.new }
@@ -26,7 +31,7 @@ describe NetworkExecutive::Program do
 
   describe '.inherited' do
     it 'should register the program with the Network' do
-      NetworkExecutive::Network.programming.first.should be_a MyProgram
+      NetworkExecutive::Network.programming.first.should be_a described_class
     end
   end
 end
