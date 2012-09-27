@@ -13,7 +13,7 @@
   document.addEventListener('mousemove', function(e) {
     clearTimeout( autoHideTimer );
 
-    if( !osd.contains('active') ) {
+    if( !osd.classList.contains('active') ) {
       osd.classList.add('active');
     }
 
