@@ -7,6 +7,7 @@ module NetworkExecutive
 
   ChannelNotFoundError = Class.new(StandardError)
   ProgramNotFoundError = Class.new(StandardError)
+  ProgramNameError     = Class.new(StandardError)
 
   def config
     @config ||= Configuration.new
