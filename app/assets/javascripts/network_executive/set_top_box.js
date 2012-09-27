@@ -8,7 +8,7 @@
 
     document.getElementById('smpte_message').innerHTML = 'Establishing uplink...';
 
-    var source = new EventSource('../tune_in/' + channel);
+    var source = new EventSource('tune_in/' + channel);
 
     source.addEventListener('open', function(e) {
       document.getElementById('smpte_message').innerHTML = 'Awaiting transmission...';
