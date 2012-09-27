@@ -16,6 +16,14 @@ describe NetworkExecutive::Program do
     it { should include( url: '' ) }
   end
 
+  describe '.find_by_name' do
+    it 'should find a program by name' do
+      NetworkExecutive::Network.programming.should_receive( :find )
+
+      described_class.find_by_name 'foo'
+    end
+  end
+
   describe '.inherited' do
     it 'should register the program with the Network' do
       NetworkExecutive::Network.programming.first.should be_a MyProgram

@@ -1,7 +1,7 @@
 require 'multi_json'
 
 module NetworkExecutive
-  class Program < Goliath::API
+  class Program
 
     def name
       self.class.name.demodulize.underscore
@@ -25,6 +25,13 @@ module NetworkExecutive
     class << self
       def inherited( klass )
         Network.programming << klass.new
+      end
+
+      # TODO: Is this the right place for this?
+      def find_by_name( name )
+        Network.programming.find do |p|
+          p.name == name
+        end
       end
     end
 
