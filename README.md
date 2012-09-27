@@ -54,41 +54,6 @@ Clearing an EAS will be made by accessing `/all_clear`. Doing so will return the
 
 If multiple EAS' are active, the correct EAS will be cleared.
 
-## Channel Line-up
-
-  A JSON file that defines the various Programs (URLs to visit) and then they should be delivered.
-
-    // In `channels/my_channel_name.json`
-    {
-      name   : 'My Channel Name',                   // Examples: Marketing, Sales, Technology, etc. Be creative!
-      url    : '/my_channel_name',                  // Optional. Automatically inferred from the Channel Name
-      logo   : '/logos/my_channel_logo.png,         // Optional. Automatically inferred from the Channel Name. Defaults to `nil`
-      ticker : 'host.com/my_ticker_feed.xml',       // Optional. Specifying a URL will add a new ticker to the bottom for the screen with the feed's data
-      on_air : '6am'
-      line_up : [
-        {
-          url             : 'http://www.cnn.com',
-          airs            : '30 * * * *'            // Every 30 minutes (from https://github.com/ncb000gt/node-cron,
-                                                    // https://github.com/mattpat/node-schedule and http://www.openjs.com/scripts/jslibrary/demos/crontab.php)
-          runtime         : '30min',                // How do runtimes affect air times?
-          commercial_free : true,                   // Optional. Disables any commericals. Defaults to FALSE.
-          username        : 'my_username',          // Optional. Necessary for Basic Auth ?
-          password        : 'my_password'           // Optional. Necessary for Basic Auth ?
-        },{
-          url             : 'http://www.flickr.com/photos/USER/sets/1234/show/',
-          airs            : '60 * * * *'
-        }
-      ],
-      commercials : [
-        '/spot_1',                                  // Local ad. Inherits all defaults.
-        {
-          url     : 'http://example.com/spot_2',    // Remote ad.
-          airs    : '9am to 10am'                   // Air only in the morning.
-          runtime : '15s'                           // Optional. `Xs`, `Xm`, or `Xh` where `X` is an integer. Defaults to 30 seconds.
-        }
-      ]
-    }
-
 ## Commercials
 
 Commercials provide a fun and interesting way to break up the monotony of viewing analytics data all day. Be creative!
