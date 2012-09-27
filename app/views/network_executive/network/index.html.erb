@@ -29,7 +29,7 @@
       </header>
       <article>
         <% @channels.each do |channel| %>
-          <a href="channels/<%= channel.name %>" class="channel"><%= channel.display_name %></a>
+          <%= link_to channel, channel_path(channel), class: 'channel' %>
         <% end %>
       </article>
     </div>
