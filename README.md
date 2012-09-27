@@ -1,6 +1,6 @@
 # Network Executive
 
-An experimental application used to drive displays hung around an office.
+An experimental Rails engine used to drive displays hung around an office.
 
 ## Installation
 
@@ -16,12 +16,9 @@ Or install it yourself as:
 
     $ gem install network_executive
 
-Create a new Network:
+Run the installation script:
 
-    $ net_exec new [YOUR_NETWORK_NAME]
-
-This will create a new directory that matches your network name and populate it
-with an application scaffold.
+    $ rails g network_executive:install
 
 All that's left is to start building your network!
 
