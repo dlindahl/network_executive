@@ -3,6 +3,9 @@ require 'network_executive/configuration'
 require 'network_executive/engine'
 
 module NetworkExecutive
+
+  ProgramNotFoundError = Class.new(StandardError)
+
   def config
     @config ||= Configuration.new
   end
