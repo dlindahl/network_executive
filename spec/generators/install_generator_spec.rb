@@ -4,7 +4,11 @@ describe NetworkExecutive::InstallGenerator do
   before do
     described_class.any_instance.stub(:say).and_return nil
     described_class.any_instance.stub(:ask).and_return nil
-    described_class.any_instance.stub(:template)
+    described_class.any_instance.stub :template
+
+    # YUCK.
+    Thor::THOR_RESERVED_WORDS.stub(:include?).and_return false
+    described_class.any_instance.stub :create_file
   end
 
   describe '#install' do
@@ -106,6 +110,19 @@ describe NetworkExecutive::InstallGenerator do
           subject
         end
       end
+    end
+
+    it 'should generate one for channels' do
+      paths = [
+        'app/channels/.gitkeep',
+        'app/programs/.gitkeep'
+      ]
+
+      described_class.any_instance.should_receive( :create_file ).twice.with do |p|
+        paths.should include p
+      end
+
+      subject
     end
   end
 

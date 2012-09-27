@@ -14,6 +14,8 @@ module NetworkExecutive
 
       create_initializer
       mount_engine
+      add_channels_folder
+      add_programs_folder
 
       say 'Done!', :green
     end
@@ -50,6 +52,16 @@ module NetworkExecutive
 
         route "mount NetworkExecutive::Engine => '/#{mount_at}', as:'network_executive'"
       end
+    end
+
+    # TODO: Uninstall steps
+    def add_channels_folder
+      create_file 'app/channels/.gitkeep'
+    end
+
+    # TODO: Uninstall steps
+    def add_programs_folder
+      create_file 'app/programs/.gitkeep'
     end
 
     def mounted?
