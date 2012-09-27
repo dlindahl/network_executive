@@ -28,11 +28,7 @@
           </aside>
         </h1>
       </header>
-      <article>
-        <% @channels.each do |channel| %>
-          <%= link_to channel, channel_path(channel), class: 'channel' %>
-        <% end %>
-      </article>
+      <article id="lineup"></article>
     </div>
 
     <%= javascript_include_tag 'application' %>

@@ -69,18 +69,12 @@ describe NetworkExecutive::Lineup do
 
     it { should be_an Array }
 
-    it 'should contain a channel name' do
-      subject.first[:name].should == 'channel a'
+    it 'should contain a channel' do
+      subject.first[:channel].should == channel
     end
 
     it 'should contain an array of scheduled programs' do
       subject.first[:schedule].should be_an Array
-    end
-
-    it 'should transform the program name' do
-      show.should_receive :program_name
-
-      subject
     end
 
     it 'should ask the channel what is on' do

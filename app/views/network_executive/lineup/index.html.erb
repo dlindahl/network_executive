@@ -1,0 +1,26 @@
+<table>
+  <thead>
+    <tr>
+      <td></td>
+      <% @lineup.times.each do |t| %>
+        <th class="guide-time">
+          <%= t.strftime '%l:%M' %>
+        </th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @lineup[:channels].each do |ch| %>
+      <tr>
+        <th class="guide-channel">
+          <%= link_to ch[:channel], channel_path(ch[:channel]) %>
+        </th>
+        <% ch[:schedule].each do |sch| %>
+          <td class="guide-program">
+            <%= sch[:program].program_name.titleize %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

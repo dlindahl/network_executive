@@ -1,6 +1,7 @@
 # Represents a channel's programming line up for a given time span.
 module NetworkExecutive
   # TODO: Why does this subclass Hash?
+  # TODO: This is an ugly data structure. Refactor.
   class Lineup < Hash
 
     Interval = 15  # In minutes.
@@ -16,10 +17,8 @@ module NetworkExecutive
     def generate
       with_each_channel do |channel, lineup|
         lineup << {
-          name:     channel.display_name,
-          schedule: whats_on?( channel ) do |show|
-            show.program_name.titleize
-          end
+          channel:  channel,
+          schedule: whats_on?( channel )
         }
       end
     end
@@ -38,6 +37,11 @@ module NetworkExecutive
 
     def stop_time
       @stop_time
+    end
+
+    # TODO: Add test
+    def times
+      self[:channels].first[:schedule].collect { |s| s[:time] }
     end
 
   private
@@ -59,7 +63,11 @@ module NetworkExecutive
     # TODO: Decouple
     def whats_on?( channel )
       channel.whats_on?( start_time, stop_time, interval:Interval ) do |show|
-        yield show
+        if block_given?
+          yield show
+        else
+          show
+        end
       end
     end
   end

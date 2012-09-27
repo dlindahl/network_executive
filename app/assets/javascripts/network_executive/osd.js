@@ -15,10 +15,26 @@
 
     if( !osd.classList.contains('active') ) {
       osd.classList.add('active');
+
+      renderGuide();
     }
 
     autoHideTimer = setTimeout(autoHide, 1000);
   });
+
+  // Fetch and display Guide Data
+  function renderGuide() {
+    var xhr = new XMLHttpRequest();
+
+    xhr.addEventListener('readystatechange', function(e) {
+      if( xhr.readyState == 4 && xhr.status == 200) {
+        document.getElementById('lineup').innerHTML = xhr.responseText;
+      }
+    });
+
+    xhr.open('GET', 'lineup.html', true);
+    xhr.send();
+  }
 
   // Update the timestamp
   var months = 'January February March April May June July August September October November December'.split(' ');

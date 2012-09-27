@@ -31,3 +31,32 @@
 .osd-now-date {
   display: block;
 }
+
+#osd table {
+  width: 100%;
+  border-spacing: .25em;
+  border-collapse: separate;
+  font-size: 1.5em;
+}
+#osd td,
+#osd th {
+  height: 1em;
+  padding: 0 .25em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.guide-time {
+  text-align: left;
+}
+.guide-channel {
+  text-align: right;
+  text-transform: capitalize;
+}
+.guide-program {
+  background: rgba(0,0,0,.33);
+}
+#osd a {
+  color: #fff;
+  text-decoration: none;
+}
