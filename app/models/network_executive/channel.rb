@@ -24,7 +24,7 @@ module NetworkExecutive
     def show( scheduled_program )
       program = Program.find_by_name scheduled_program.program_name
 
-      raise ProgramNotFoundError unless program
+      raise ProgramNotFoundError.new("#{scheduled_program.program_name} is not a registered channel") unless program
 
       push program.play
     end
