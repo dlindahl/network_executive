@@ -1,13 +1,14 @@
 ;(function() {
 
-  var channel = window.location.pathname.split('/')[2];
+  var paths   = window.location.pathname.split('/'),
+      channel = paths[ paths.length - 1];
 
   if( channel ) {
     console.log( 'tune in to channel:', channel );
 
     document.getElementById('smpte_message').innerHTML = 'Establishing uplink...';
 
-    var source = new EventSource('/tune_in/' + channel);
+    var source = new EventSource('../tune_in/' + channel);
 
     source.addEventListener('open', function(e) {
       document.getElementById('smpte_message').innerHTML = 'Awaiting transmission...';
