@@ -1,4 +1,5 @@
-require 'network_executive/behaviors/scheduling'
+require 'network_executive/network'
+require 'network_executive/scheduling'
 
 module NetworkExecutive
   class Channel < EventMachine::Channel
@@ -18,11 +19,10 @@ module NetworkExecutive
     def display_name
       name.gsub %r{_}, ' '
     end
+    alias_method :to_s, :display_name
 
     def show( scheduled_program )
-      program = Network.programming.find do |p|
-        p.name == scheduled_program.program_name
-      end
+      program = Program.find_by_name scheduled_program.program_name
 
       raise ProgramNotFoundError unless program
 
@@ -32,6 +32,13 @@ module NetworkExecutive
     class << self
       def inherited( klass )
         Network.channels << klass.new
+      end
+
+      # TODO: Is this the right place for this?
+      def find_by_name( name )
+        Network.channels.find do |c|
+          c.name == name
+        end
       end
     end
 

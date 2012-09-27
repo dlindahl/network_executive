@@ -1,22 +1,25 @@
 describe NetworkExecutive::Channel do
 
-  class MyChannel < NetworkExecutive::Channel
-  end
+  MyChannel = Class.new( NetworkExecutive::Channel )
 
   subject { MyChannel.new }
 
   its(:name)         { should == 'my_channel' }
   its(:display_name) { should == 'my channel' }
+  its(:to_s)         { should == 'my channel' }
 
   describe '#show' do
     context 'for a program that exists' do
+      let(:scheduled_double) { double('program', program_name:'name') }
+      let(:program_double)   { double('program') }
+
       it 'should play the program' do
-        program_double = double('program')
-        NetworkExecutive::Network.programming.stub( :find ).and_return program_double
+        NetworkExecutive::Program.stub( :find_by_name ).and_return program_double
 
         program_double.should_receive :play
+        described_class.any_instance.should_receive :push
 
-        subject.show 'my_program'
+        subject.show scheduled_double
       end
     end
 
@@ -26,6 +29,14 @@ describe NetworkExecutive::Channel do
 
         expect{ subject.show program }.to raise_error NetworkExecutive::ProgramNotFoundError
       end
+    end
+  end
+
+  describe '.find_by_name' do
+    it 'should find a program by name' do
+      NetworkExecutive::Network.channels.should_receive( :find )
+
+      described_class.find_by_name 'foo'
     end
   end
 
