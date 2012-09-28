@@ -1,8 +1,8 @@
 require 'network_executive/version'
 require 'network_executive/configuration'
-require 'network_executive/engine'
-require 'network_executive/station'
 require 'network_executive/components'
+require 'network_executive/station'
+require 'network_executive/engine'
 
 module NetworkExecutive
 
