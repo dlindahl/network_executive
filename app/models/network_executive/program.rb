@@ -1,5 +1,7 @@
 require 'multi_json'
 
+require 'network_executive/network'
+
 module NetworkExecutive
   class Program
 
