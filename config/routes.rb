@@ -3,6 +3,8 @@ NetworkExecutive::Engine.routes.draw do
 
   match 'channels/:channel_name' => 'network#index', as: :channel
 
+  match 'you_tube' => 'components#you_tube', as: :you_tube
+
   match 'lineup' => 'lineup#index', as: :lineup
 
   match 'programs/:program_name' => 'programs#show', as: :program
