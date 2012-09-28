@@ -12,14 +12,18 @@ module NetworkExecutive
       eager_load_models_in 'channels', app
     end
 
-    initializer 'network_executive.eager_load_programs' do |app|
+    initializer 'network_executive.eager_load_default_programs' do |app|
+      eager_load_models_in 'programs', self
+    end
+
+    initializer 'network_executive.eager_load_user_programs' do |app|
       eager_load_models_in 'programs', app
     end
 
   private
 
     def eager_load_models_in( sub_path, app )
-      Dir[ File.join(app.root, 'app', sub_path, '*') ].each do |c|
+      Dir[ File.join(app.root, 'app', sub_path, '**', '*.rb') ].each do |c|
         require c
       end
     end

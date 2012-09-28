@@ -31,7 +31,7 @@ describe NetworkExecutive::Scheduling do
 
     context 'with nothing scheduled' do
       it 'should return nil' do
-        channel.new.whats_on?.should be_nil
+        channel.new.whats_on?.should be_a NetworkExecutive::OffAirSchedule
       end
     end
 
@@ -62,6 +62,13 @@ describe NetworkExecutive::Scheduling do
 
       shows.first[:program].should be program_b
       shows.last[:program].should be program_c
+    end
+
+    it 'should return an Off Air schedule when nothing is schedule for a given range' do
+      shows = channel.new.whats_on?( 1.hour.ago, 1.hour.from_now )
+
+      shows.first[:program].should be_a NetworkExecutive::OffAirSchedule
+      shows.last[:program].should  be_a NetworkExecutive::OffAirSchedule
     end
 
     it 'should yield a block when provided a stop_time' do
@@ -100,7 +107,6 @@ describe NetworkExecutive::Scheduling do
     it 'should contain the blocks return value' do
       subject.all?{ |x| x == 'block retval' }.should be_true
     end
-
   end
 
 end

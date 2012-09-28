@@ -5,5 +5,7 @@ NetworkExecutive::Engine.routes.draw do
 
   match 'lineup' => 'lineup#index', as: :lineup
 
+  match 'programs/:program_name' => 'programs#show', as: :program
+
   root to:'network#index'
 end

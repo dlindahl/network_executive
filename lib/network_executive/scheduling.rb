@@ -9,12 +9,14 @@ module NetworkExecutive
 
       if stop_time
         with_showtimes_between( start_time, stop_time, options ) do |showtime, program|
+          program ||= NetworkExecutive::OffAirSchedule.new
+
           program = (block_given? ? yield(program) : program)
 
           { time:showtime, program:program }
         end
       else
-        schedule.find_by_showtime start_time
+        schedule.find_by_showtime( start_time ) || NetworkExecutive::OffAirSchedule.new
       end
     end
 
