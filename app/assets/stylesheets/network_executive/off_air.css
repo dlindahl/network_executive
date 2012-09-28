@@ -1,6 +1,5 @@
 /*
- *= require ./normalize
- *= require ./gui_components
- *= require ./smpte
- *= require_self
+ *= require ./components/normalize
+ *= require ./components/gui_components
+ *= require ./components/smpte
  */

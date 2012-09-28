@@ -8,9 +8,8 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require ./normalize
- *= require ./gui_components
- *= require ./smpte
- *= require ./osd
- *= require_self
+ *= require ./network_executive/components/normalize
+ *= require ./network_executive/components/gui_components
+ *= require ./network_executive/components/smpte
+ *= require ./network_executive/components/osd
  */

@@ -20,6 +20,17 @@ module NetworkExecutive
       eager_load_models_in 'programs', app
     end
 
+    initializer :assets do |app|
+      app.config.assets.precompile += [
+        'network_executive.js',
+        'network_executive/you_tube.js',
+
+        'network_executive.css',
+        'network_executive/off_air.css',
+        'network_executive/you_tube.css',
+      ]
+    end
+
   private
 
     def eager_load_models_in( sub_path, app )
