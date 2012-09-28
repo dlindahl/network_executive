@@ -1,3 +1,4 @@
+#= require ./components/namespace
 #= require ./components/postman
 #= require ./components/you_tube_player
 

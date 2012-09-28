@@ -1,51 +1,76 @@
-paths   = @location.pathname.split '/'
-channel = paths[ paths.length - 1]
+win = @
 
-if channel
-  document.getElementById( 'smpte_message' ).innerHTML = 'Establishing uplink...'
+class @NE.SetTopBox
+  constructor : (channel) ->
+    @smpte    = document.getElementById( 'smpte' )
+    @smpteMsg = document.getElementById( 'smpte_message' )
+    @program  = document.getElementById( 'program' )
 
-  source = new EventSource( "tune_in/#{channel}" )
+    if @channel = channel
+      @establishUplink()
+    else
+      @setSmpteMessage 'No signal'
 
-  source.addEventListener 'open', (e) ->
-    document.getElementById('smpte_message').innerHTML = 'Awaiting transmission...';
+  setSmpteMessage : (msg) ->
+    @smpteMsg.innerHTML = msg
 
-    console.log('[open]', e);
-  , false
+  showSmpte : ->
+    # Move this functionality to a class for better cross-browser support
+    @smpte.style.display = '-webkit-box'
 
-  source.addEventListener 'message', (e) =>
+  hideSmpte : ->
+    @smpte.style.display = 'none'
+
+  establishUplink : ->
+    @uplink = new EventSource( "tune_in/#{@channel}" )
+
+    @uplink.addEventListener 'open',    @onUplinkUp,    false
+    @uplink.addEventListener 'message', @onUplinkMessage, false
+    @uplink.addEventListener 'error',   @onUplinkDown,   false
+
+  goTo : (url) ->
+    @program.setAttribute 'src', url
+
+  onUplinkUp : (e) =>
+    @setSmpteMessage 'Awaiting transmission...'
+
+  onUplinkDown : (e) =>
+    if e.eventPhase == EventSource.CLOSED
+      @setSmpteMessage 'Transmission lost...'
+
+      @goTo 'about:blank'
+
+      @showSmpte()
+
+  parseEvent : (e) ->
+    try
+      payload = JSON.parse( e.data )
+    catch e
+      payload = {}
+
+    payload.onReady   ?= {}
+    payload.redraw     = not payload.live_feed
+    payload.newProgram = payload.live_feed and payload.url != @program.getAttribute( 'src' )
+
+    payload
+
+  onUplinkMessage : (e) =>
     console.log '[message]', e.data
 
-    payload = JSON.parse( e.data )
-    tube    = document.getElementById( 'program' )
+    payload = @parseEvent( e )
 
-    document.getElementById( 'smpte' ).style.display = 'none'
+    @hideSmpte()
 
-    if !payload.live_feed || payload.live_feed && payload.url != tube.getAttribute( 'src' )
+    if payload.redraw or payload.newProgram
       onIframeReady = (e) =>
         payload.onReady.event = 'iframeReadyCallback'
 
         msg = JSON.stringify( payload.onReady )
 
-        e.detail.source.postMessage msg, @location.origin
+        e.detail.source.postMessage msg, win.location.origin
 
-        @removeEventListener 'iframeReady', onIframeReady
+        win.removeEventListener 'iframeReady', onIframeReady
 
-      @addEventListener 'iframeReady', onIframeReady, false
+      win.addEventListener 'iframeReady', onIframeReady, false
 
-      tube.setAttribute 'src', payload.url
-  , false
-
-  source.addEventListener 'error', (e) ->
-    if e.eventPhase == EventSource.CLOSED
-      console.log('[closed]', e);
-
-      document.getElementById('smpte_message').innerHTML = 'Transmission lost...'
-      document.getElementById('program').setAttribute 'src', 'about:blank'
-
-      # Move this functionality to a class for better cross-browser support
-      document.getElementById('smpte').style.display = '-webkit-box';
-    else
-      console.log '[closed]', e
-  , false
-else
-  document.getElementById( 'smpte_message' ).innerHTML = 'No signal'
+      @goTo payload.url

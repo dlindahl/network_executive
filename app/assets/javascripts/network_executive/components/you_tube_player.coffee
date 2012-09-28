@@ -1,11 +1,9 @@
-window.NE = {}
-
 YT_BASE_URL = '//gdata.youtube.com/feeds/api/users/%USER%/uploads/%TAGS%?v=2&alt=json';
 
 # A random sort function
 randomizer = -> 0.5 - Math.random()
 
-class NE.YTPlayer
+class @NE.YTPlayer
   constructor : (id, options) ->
     @id      = id
     @videos  = []
