@@ -2,7 +2,17 @@ require 'network_executive/version'
 require 'network_executive/configuration'
 require 'network_executive/engine'
 require 'network_executive/station'
-require 'network_executive/components'
+
+puts '============= LOAD COMPS'
+
+begin
+  require 'network_executive/components'
+rescue StandardError => err
+  puts 'ZOMG ERROR'
+  puts err.inspect
+end
+
+puts '============= COMPS DONE'
 
 module NetworkExecutive
 
