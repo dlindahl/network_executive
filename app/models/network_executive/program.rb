@@ -13,10 +13,27 @@ module NetworkExecutive
       ''
     end
 
+    # TRUE to disable reloading the page for every tick.
+    # Defaults to FALSE
+    #
+    # Indicates that the embedded page will handle keeping the content
+    # fresh.
+    def live_feed
+      false
+    end
+
+    # A Hash containing data to pass to embedded page via postMessage
+    # once the IFRAME has indicated that it is ready.
+    def onready
+      {}
+    end
+
     def as_json
       {
-        name: name,
-        url:  url
+        name:      name,
+        url:       url,
+        onReady:   onready,
+        live_feed: live_feed
       }
     end
 

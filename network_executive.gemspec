@@ -20,8 +20,10 @@ Gem::Specification.new do |gem|
   gem.add_dependency             'activesupport',   '~> 3.2.0'
   gem.add_dependency             'faye-websocket',  '~> 0.4.6'
 
+  # TODO: Where should these live?
   gem.add_runtime_dependency     'sass-rails'
   gem.add_runtime_dependency     'uglifier'
+  gem.add_runtime_dependency     'coffee-rails'
 
   gem.add_development_dependency 'awesome_print'
   gem.add_development_dependency 'rails',           '~> 3.2.8'

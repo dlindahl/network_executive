@@ -19,11 +19,28 @@
     source.addEventListener('message', function(e) {
       console.log( '[message]', e.data );
 
-      var payload = JSON.parse( e.data );
+      var payload = JSON.parse( e.data ),
+          tube    = document.getElementById('program');
 
       document.getElementById('smpte').style.display = 'none';
 
-      document.getElementById('program').setAttribute('src', payload.url);
+      if( !payload.live_feed || payload.live_feed && payload.url != tube.getAttribute('src') ) {
+        var onIframeReady = function(e) {
+          console.log( 'iframe ready!', e );
+
+          payload.onReady.event = 'iframeReadyCallback';
+
+          var d = payload.onReady;
+
+          e.detail.source.postMessage( JSON.stringify(d), window.location.origin );
+
+          window.removeEventListener('iframeReady', onIframeReady);
+        };
+
+        window.addEventListener('iframeReady', onIframeReady, false);
+
+        tube.setAttribute('src', payload.url);
+      }
     }, false);
 
     source.addEventListener('error', function(e) {

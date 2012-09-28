@@ -10,4 +10,6 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require_tree ./network_executive
+//= require ./network_executive/osd
+//= require ./network_executive/set_top_box
+//= require ./network_executive/components/postman

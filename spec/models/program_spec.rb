@@ -12,7 +12,9 @@ describe NetworkExecutive::Program do
 
   its(:name) { should == 'my_program' }
   its(:url)  { should == '' }
-  its(:play) { should == %q[{"name":"my_program","url":""}] }
+  its(:live_feed) { should be_false }
+  its(:onready) { should == {} }
+  its(:play) { should == %q[{"name":"my_program","url":"","onReady":{},"live_feed":false}] }
 
   describe '#as_json' do
     subject { MyProgram.new.as_json }
