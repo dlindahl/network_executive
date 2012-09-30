@@ -7,3 +7,4 @@ paths   = @location.pathname.split '/'
 channel = paths[ paths.length - 1]
 
 new NE.SetTopBox( channel )
+new NE.OSD()
