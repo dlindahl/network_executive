@@ -2,12 +2,18 @@
 require 'sass-rails'
 require 'ice_cube'
 
+require 'network_executive/time_calculations'
+
 module NetworkExecutive
 
   class Engine < Rails::Engine
     engine_name :network_executive
 
     isolate_namespace NetworkExecutive
+
+    initializer 'network_executive.extend_time' do |app|
+      Time.send :include, TimeCalculations
+    end
 
     initializer 'network_executive.eager_load_default_programs' do |app|
       eager_load_models_in 'programs', self

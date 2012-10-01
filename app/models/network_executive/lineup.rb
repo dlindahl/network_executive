@@ -37,11 +37,11 @@ module NetworkExecutive
     end
 
     def start_time=( time )
-      @start_time = floor time
+      @start_time = time.floor( Interval.minutes )
     end
 
     def stop_time=( time )
-      @stop_time = floor time
+      @stop_time = time.floor( Interval.minutes )
     end
 
     # TODO: Add test
@@ -62,13 +62,6 @@ module NetworkExecutive
     end
 
   private
-
-    # Rounds the specific time to the nearest interval
-    def floor( time, nearest = nil )
-      nearest ||= Interval.minutes
-
-      Time.at((time.to_f / nearest.to_i).floor * nearest.to_i)
-    end
 
     # TODO: Decouple
     def with_each_channel
