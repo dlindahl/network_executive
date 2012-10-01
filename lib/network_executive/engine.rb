@@ -1,5 +1,6 @@
 # TODO: Only load when needed (enables asset pipeline)
 require 'sass-rails'
+require 'ice_cube'
 
 module NetworkExecutive
 

@@ -1,31 +1,17 @@
 require 'active_support/concern'
 
+require 'network_executive/channel_schedule'
+
 module NetworkExecutive
   module Scheduling
     extend ActiveSupport::Concern
 
-    def whats_on?( start_time = nil, stop_time = nil, options = {} )
-      start_time ||= Time.now
-
-      if stop_time
-        with_showtimes_between( start_time, stop_time, options ) do |showtime, program|
-          program ||= NetworkExecutive::OffAirSchedule.new
-
-          program = (block_given? ? yield(program) : program)
-
-          { time:showtime, program:program }
-        end
-      else
-        schedule.find_by_showtime( start_time ) || NetworkExecutive::OffAirSchedule.new
-      end
+    def whats_on_at?( time )
+      schedule.find { |sch| sch.whats_on? time } || OffAir.new
     end
 
-    def with_showtimes_between( start, stop, options = {} )
-      LineupRange.new( start, stop, options ).each_with_object([]) do |showtime, lineup|
-        program = schedule.find_by_showtime showtime
-
-        lineup << yield( showtime, program )
-      end
+    def whats_on?
+      whats_on_at? Time.now
     end
 
     def schedule
@@ -33,12 +19,14 @@ module NetworkExecutive
     end
 
     module ClassMethods
-      def schedule
+      def schedule( program = nil, options = {}, &block )
         @schedule ||= ChannelSchedule.new
-      end
 
-      def every( date, options )
-        schedule.add ProgramSchedule.new( date, options )
+        if block_given?
+          @schedule.add program, options, &block
+        else
+          @schedule
+        end
       end
     end
 

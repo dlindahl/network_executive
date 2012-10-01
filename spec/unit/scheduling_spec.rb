@@ -1,111 +1,81 @@
 describe NetworkExecutive::Scheduling do
 
-  describe '.every' do
-    it 'should schedule the program' do
-      channel = Class.new( NetworkExecutive::Channel ) do
-        include NetworkExecutive::Scheduling
-
-        every :day, play:'my_show'
-      end
-
-      channel.schedule.first.should be_a NetworkExecutive::ProgramSchedule
+  let(:klass) do
+    Class.new do
+      include NetworkExecutive::Scheduling
     end
   end
 
-  describe 'schedule' do
-    it 'should be a ChannelSchedule' do
-      channel = Class.new( NetworkExecutive::Channel ) do
-        include NetworkExecutive::Scheduling
-      end
+  before do
+    stub_const 'MyChannel', klass
+  end
 
-      channel.schedule.should be_a NetworkExecutive::ChannelSchedule
+  subject { MyChannel.new }
+
+  describe '.schedule' do
+    context 'with a block' do
+      it 'should add a program' do
+        params = [
+          'program',
+          kind_of(Hash)
+        ]
+
+        NetworkExecutive::ChannelSchedule.any_instance.should_receive( :add ).with( *params )
+
+        MyChannel.schedule( 'program' ) do
+          # ...
+        end
+      end
+    end
+
+    context 'without a block' do
+      it 'should be a ChannelSchedule' do
+        MyChannel.schedule.should be_a NetworkExecutive::ChannelSchedule
+      end
+    end
+  end
+
+  describe '#schedule' do
+    it 'should be a ChannelSchedule' do
+      subject.schedule.should be_a NetworkExecutive::ChannelSchedule
     end
   end
 
   describe '#whats_on?' do
-    let(:channel) do
-      Class.new( NetworkExecutive::Channel ) do
-        include NetworkExecutive::Scheduling
-      end
-    end
+    before { Timecop.freeze }
 
-    context 'with nothing scheduled' do
-      it 'should return nil' do
-        channel.new.whats_on?.should be_a NetworkExecutive::OffAirSchedule
-      end
-    end
+    it 'should return what is on right now' do
+      subject.should_receive( :whats_on_at? ).with( Time.now )
 
-    it 'should return the most appropriate program for a given time' do
-      program_c = double('program c', include?: true)
-
-      channel.schedule.add double('program a', include?: false)
-      channel.schedule.add double('program b', include?: true)
-      channel.schedule.add program_c
-      channel.schedule.add double('program d', include?: false)
-
-      channel.new.whats_on?.should == program_c
-    end
-
-    it 'should return all programs scheduled for a range of times' do
-      program_b = double 'program b'
-      program_b.stub(:include?).and_return true, false
-
-      program_c = double 'program c'
-      program_c.stub(:include?).and_return false, true
-
-      channel.schedule.add double('program a', include?: false)
-      channel.schedule.add program_b
-      channel.schedule.add program_c
-      channel.schedule.add double('program d', include?: false)
-
-      shows = channel.new.whats_on?( 1.hour.ago, 1.hour.from_now )
-
-      shows.first[:program].should be program_b
-      shows.last[:program].should be program_c
-    end
-
-    it 'should return an Off Air schedule when nothing is schedule for a given range' do
-      shows = channel.new.whats_on?( 1.hour.ago, 1.hour.from_now )
-
-      shows.first[:program].should be_a NetworkExecutive::OffAirSchedule
-      shows.last[:program].should  be_a NetworkExecutive::OffAirSchedule
-    end
-
-    it 'should yield a block when provided a stop_time' do
-      program_a = double('program a', include?: true)
-      channel.schedule.add program_a
-
-      channel.new.whats_on?( 1.hour.ago, 1.hour.from_now) do |program|
-        program.should be program_a
-      end
+      subject.whats_on?
     end
   end
 
-  describe '#with_showtimes_between' do
-    let(:klass) do
-      Class.new( NetworkExecutive::Channel ) do
-        include NetworkExecutive::Scheduling
+  describe '#whats_on_at?' do
+    context 'with nothing scheduled' do
+      before do
+        NetworkExecutive::ChannelSchedule.any_instance.stub(:find).and_return nil
+      end
 
-        every :day, play:'my_show'
+      it 'should return OffAir' do
+        subject.whats_on_at?( Time.now ).should be_a NetworkExecutive::OffAir
       end
     end
 
-    let(:channel) { klass.new }
+    context 'with something scheduled' do
+      let(:prog_1) { double('unscheduled', whats_on?: false) }
+      let(:prog_2) { double('scheduled',   whats_on?: true)  }
+      let(:prog_3) { double('unscheduled', whats_on?: false) }
 
-    subject do
-      program_a = double 'program_a', include?: true
-
-      channel.schedule.add program_a
-
-      range = [ 1.hour.ago, 1.hour.from_now ]
-
-      channel.with_showtimes_between( *range ) do |showtime, program|
-        'block retval'
+      before do
+        subject.schedule << prog_1
+        subject.schedule << prog_2
+        subject.schedule << prog_3
       end
-    end
 
-    it 'should contain the blocks return value' do
-      subject.all?{ |x| x == 'block retval' }.should be_true
+      it 'should return the scheduled program' do
+        subject.whats_on_at?( Time.now ).should == prog_2
+      end
     end
   end
 

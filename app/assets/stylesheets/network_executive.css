@@ -12,4 +12,5 @@
  *= require ./network_executive/components/gui_components
  *= require ./network_executive/components/smpte
  *= require ./network_executive/components/osd
+ *= require ./network_executive/components/osd_lineup
  */

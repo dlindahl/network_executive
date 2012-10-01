@@ -41,17 +41,15 @@ describe NetworkExecutive::Producer do
 
   describe '.run_scheduled_programming' do
     let(:scheduled)   { double('channel', whats_on?: true) }
-    let(:unscheduled) { double('channel', whats_on?: nil) }
 
     before do
-      NetworkExecutive::Network.stub(:channels).and_return [ scheduled, unscheduled ]
+      NetworkExecutive::Network.stub(:channels).and_return [ scheduled ]
     end
 
     subject { described_class.run_scheduled_programming }
 
     it 'should show all scheduled programming' do
       scheduled.should_receive :show
-      unscheduled.should_receive( :show ).never
 
       subject
     end

@@ -15,11 +15,15 @@
         <th class="guide-channel">
           <%= link_to ch[:channel], channel_path(ch[:channel]) %>
         </th>
-        <% ch[:schedule].each do |sch| %>
-          <td class="guide-program">
-            <%= sch[:program].program_name.titleize %>
-          </td>
-        <% end %>
+        <td colspan="<%= @lineup.times.size %>">
+          <% ch[:entries].each do |entry| %>
+            <div class="guide-program-ct" style="width: <%= entry[:percentage_of_total] %>%;">
+              <span class="guide-program">
+                <%= entry[:program].name.titleize %>
+              </span>
+            </div>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

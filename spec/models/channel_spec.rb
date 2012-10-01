@@ -15,26 +15,13 @@ describe NetworkExecutive::Channel do
   its(:to_s)         { should == 'my channel' }
 
   describe '#show' do
-    context 'for a program that exists' do
-      let(:scheduled_double) { double('program', program_name:'name') }
-      let(:program_double)   { double('program') }
+    let(:program_double)   { double('program') }
 
-      it 'should play the program' do
-        NetworkExecutive::Program.stub( :find_by_name ).and_return program_double
+    it 'should play the program' do
+      program_double.should_receive :play
+      described_class.any_instance.should_receive :push
 
-        program_double.should_receive :play
-        described_class.any_instance.should_receive :push
-
-        subject.show scheduled_double
-      end
-    end
-
-    context 'for a program that does not exist' do
-      it 'should raise a ProgramNotFoundError' do
-        program = double('scheduled_program', program_name:'noop')
-
-        expect{ subject.show program }.to raise_error NetworkExecutive::ProgramNotFoundError
-      end
+      subject.show program_double
     end
   end
 

@@ -1,0 +1,43 @@
+#lineup {
+  overflow: hidden;
+}
+
+#osd table {
+  width: 100%;
+  border-spacing: .25em;
+  border-collapse: separate;
+  font-size: 1.5em;
+}
+
+#osd th,
+.guide-program {
+  height: 1.2em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.guide-time {
+  text-align: left;
+}
+
+.guide-channel {
+  text-align: right;
+  text-transform: capitalize;
+}
+
+.guide-program-ct {
+  float: left;
+}
+
+.guide-program {
+  display: block;
+  margin: 0 .25em;
+  padding: 0 .25em;
+  background: rgba(0,0,0,.33);
+}
+
+#osd a {
+  color: #fff;
+  text-decoration: none;
+}

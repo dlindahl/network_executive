@@ -25,6 +25,8 @@ describe NetworkExecutive::Lineup do
   end
 
   describe '#start_time' do
+    before { described_class.any_instance.stub(:generate) }
+
     context 'the default value' do
       subject { described_class.new.start_time }
 
@@ -45,6 +47,8 @@ describe NetworkExecutive::Lineup do
   end
 
   describe '#stop_time' do
+    before { described_class.any_instance.stub(:generate) }
+
     context 'the default value' do
       subject { described_class.new.stop_time }
 
@@ -64,7 +68,35 @@ describe NetworkExecutive::Lineup do
     end
   end
 
+  describe '#times' do
+    let(:entries_double) { double('entries', increment: 15.minutes).as_null_object }
+
+    before do
+      NetworkExecutive::LineupEntries.stub(:new).and_return entries_double
+    end
+
+    it 'should start with the start time' do
+      ap subject.times
+
+      subject.times.first.should eq Time.now
+    end
+
+    it 'should contain 15 minute intervals' do
+      subject.times.size.should eq 6
+    end
+
+    it 'should end with 1.5 hours after start time' do
+      subject.times.last.should eq Time.now + 1.5.hours - 15.minutes
+    end
+  end
+
   describe '#channels' do
+    let(:entries_double) { double('entries', increment: 15.minutes).as_null_object }
+
+    before do
+      NetworkExecutive::LineupEntries.stub(:new).and_return entries_double
+    end
+
     subject { described_class.new[:channels] }
 
     it { should be_an Array }
@@ -73,14 +105,12 @@ describe NetworkExecutive::Lineup do
       subject.first[:channel].should == channel
     end
 
-    it 'should contain an array of scheduled programs' do
-      subject.first[:schedule].should be_an Array
+    it 'should contain a collection of entries' do
+      subject.first[:entries].should == entries_double
     end
 
     it 'should ask the channel what is on' do
-      args = [ Time.now, 1.5.hours.from_now, kind_of(Hash) ]
-
-      channels.first.should_receive(:whats_on?).with( *args )
+      channels.first.should_receive(:whats_on_at?).with( Time.now )
 
       subject
     end

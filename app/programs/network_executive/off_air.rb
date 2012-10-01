@@ -10,5 +10,9 @@ module NetworkExecutive
       NetworkExecutive::Engine.routes.url_helpers.program_path 'off_air'
     end
 
+    def duration
+      Lineup::Interval.minutes
+    end
+
   end
 end

@@ -19,6 +19,7 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency             'activesupport',   '~> 3.2.0'
   gem.add_dependency             'faye-websocket',  '~> 0.4.6'
+  gem.add_dependency             'ice_cube',        '~> 0.8.1'
 
   # TODO: Where should these live?
   gem.add_runtime_dependency     'sass-rails'

@@ -3,5 +3,7 @@ describe NetworkExecutive::OffAir do
 
   its(:display_name) { should == 'Off Air' }
 
+  its(:duration) { should == 15.minutes }
+
   its(:url) { should == '/programs/off_air' }
 end
