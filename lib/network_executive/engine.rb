@@ -8,16 +8,16 @@ module NetworkExecutive
 
     isolate_namespace NetworkExecutive
 
-    initializer 'network_executive.eager_load_channels' do |app|
-      eager_load_models_in 'channels', app
-    end
-
     initializer 'network_executive.eager_load_default_programs' do |app|
       eager_load_models_in 'programs', self
     end
 
     initializer 'network_executive.eager_load_user_programs' do |app|
       eager_load_models_in 'programs', app
+    end
+
+    initializer 'network_executive.eager_load_channels' do |app|
+      eager_load_models_in 'channels', app
     end
 
     initializer :assets do |app|
