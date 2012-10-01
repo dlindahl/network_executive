@@ -11,8 +11,6 @@ class @NE.SetTopBox
     else
       @setSmpteMessage 'No signal'
 
-    win.addEventListener 'beforeunload', @onBeforeUnload
-
   setSmpteMessage : (msg) ->
     @smpteMsg.innerHTML = msg
 
@@ -76,6 +74,3 @@ class @NE.SetTopBox
       win.addEventListener 'iframeReady', onIframeReady, false
 
       @goTo payload.url
-
-  onBeforeUnload : =>
-    @uplink.close()
