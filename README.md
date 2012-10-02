@@ -20,6 +20,19 @@ Run the installation script:
 
     $ rails g network_executive:install
 
+If you experience lots of deadlock errors in production, you'll want to enabled
+threaded mode in your Rails application.
+
+All you have to do is uncomment the following line:
+
+```ruby
+# config/environments/production.rb
+# Enable threaded mode
+config.threadsafe!
+```
+
+Tenderlove has an interesting [blog post][tender_love] if you'd like to learn more.
+
 All that's left is to start building your network!
 
 ## Usage
@@ -92,6 +105,7 @@ While commercials are ignored, EAS messages will still pre-empt programming.
 * Raise an exception if there are no channels to ease bootstrapping for new users
 * Swap out jQuery for Zepto?
 * Add http://brad.is/coding/BigScreen/
+* Should the installation generator turn on threaded mode?
 
 ## Contributing
 
@@ -100,3 +114,6 @@ While commercials are ignored, EAS messages will still pre-empt programming.
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+[tender_love]: http://tenderlovemaking.com/2012/06/18/removing-config-threadsafe.html
+
