@@ -91,6 +91,12 @@ describe NetworkExecutive::Viewer do
 
       stream.onclose.should_not be_nil
     end
+
+    it 'should immiedately play whatever is currently scheduled' do
+      stream.should_receive( :send ).with channel
+
+      subject
+    end
   end
 
   describe '#tune_out' do

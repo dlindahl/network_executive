@@ -33,6 +33,8 @@ module NetworkExecutive
       self.id = channel.subscribe { |msg| stream.send msg }
 
       stream.onclose = method(:tune_out).to_proc
+
+      stream.send channel.whats_on?.play
     end
 
     def tune_out( event )
