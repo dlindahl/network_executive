@@ -11,6 +11,10 @@ module NetworkExecutive
 
       def call( env )
         if Faye::EventSource.eventsource?( env )
+          if body = env['em.connection'].request.body && body.respond_to?(:close)
+            body.close
+          end
+
           Viewer.change_channel env
         else
           [ 403, nil, [] ]
