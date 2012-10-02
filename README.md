@@ -35,13 +35,44 @@ Tenderlove has an interesting [blog post][tender_love] if you'd like to learn mo
 
 All that's left is to start building your network!
 
-## Usage
+# Ideas
 
-    $ net_exec server
+* _EAS_ - Allow a channel to break into the schedule to display important content
+* _Ticker_ - Allow a separate feed of info. Tweets, metrics, WOWs, etc.
+* _Network Logo_ - Useful?
+* _Commericals / PSAs_ - The More You Know?
+* _Set Top Box_ - The client-side component. SSEs?
+* _On-Screen Guide_ - Client-side slide out remote to change channels/networks?
+* _On-Demand_ - Change to and stay at a specific channel. "Live" to exit.
 
 ## Network
 
-A class that represents a server instance. This is what holds the channel-line up and serves content to the browser.
+A class that represents a server instance. This is what holds the channel-line
+up and serves content to the browser.
+
+## Channel
+
+A class that represents a list of schedule programming and a client-side endpoint.
+
+Navigating to a channel URL will "tune in" the viewer into the specified channel
+and content will be pushed to the browser.
+
+## Program
+
+A class that represents content to display to the user.
+
+A program needs to have at least a URL to navigate the browser to.
+
+## Set Top Box
+
+The Set Top Box represents the client-side code that drives the whole end user
+experience.
+
+## On-Screen Guide
+
+The On-Screen Guide allows a viewer access to the entire Network.
+
+This provides an easy way to change channels.
 
 ### EAS
 
@@ -74,31 +105,12 @@ Commercials provide a fun and interesting way to break up the monotony of viewin
 The scheduling of commercials is determined by how many commercials are defined and long each program runs for. By default,
 commercial breaks are taken twice for each 30-minute block of programming.
 
-## Viewer
-
-The viewer represents the client-side code that drives the whole end user experience.
-
-## On-Screen Guide
-
-The On-Screen Guide allows a viewer access to the entire Network. This provides an easy way to change channels.
-
 ### On-Demand
 
-On-Demand is an On-Screen Guide feature that allows a viewer to continuously view one specific channel until further notice.
+On-Demand is an On-Screen Guide feature that allows a viewer to continuously
+view one specific channel until further notice.
 
 While commercials are ignored, EAS messages will still pre-empt programming.
-
-# Ideas
-
-* _Network_ - An server instance with a specific channel line-up. Think Tech vs. Sales vs. Marketing
-* _Channel Line-up_ - A JSON/YML file that defines URLs and display times
-* _EAS_ - Allow a channel to break into the schedule to display important content
-* _Ticker_ - Allow a separate feed of info. Tweets, metrics, WOWs, etc.
-* _Network Logo_ - Useful?
-* _Commericals / PSAs_ - The More You Know?
-* _Viewer_ - The client-side component. SSEs?
-* _Clicker_ - Client-side slide out remote to change channels/networks?
-* _On-Demand_ - Change to and stay at a specific channel. "Live" to exit.* _On-Demand_ - Change to and stay at a specific channel. "Live" to exit.1
 
 ## TODO
 
