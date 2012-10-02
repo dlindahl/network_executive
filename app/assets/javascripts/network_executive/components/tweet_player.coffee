@@ -7,7 +7,7 @@ class @NE.TweetPlayer
     @avatarEl     = document.getElementById( 'avatar' )
     @backgroundEl = document.getElementById( 'background' )
     @tweets       = tweets
-    @displayTime  = 2000
+    @displayTime  = 10000
     @cursor       = 0
 
     setInterval @render, @displayTime
