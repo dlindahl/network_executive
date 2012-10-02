@@ -28,6 +28,8 @@ module NetworkExecutive
     end
 
     initializer :assets do |app|
+      app.config.assets.paths << File.join( root, 'app', 'assets', 'fonts' )
+
       app.config.assets.precompile += [
         'network_executive.js',
         'network_executive/you_tube.js',
