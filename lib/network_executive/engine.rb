@@ -31,10 +31,12 @@ module NetworkExecutive
       app.config.assets.precompile += [
         'network_executive.js',
         'network_executive/you_tube.js',
+        'network_executive/twitter.js',
 
         'network_executive.css',
         'network_executive/off_air.css',
         'network_executive/you_tube.css',
+        'network_executive/twitter.css',
       ]
     end
 
