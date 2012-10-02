@@ -4,6 +4,7 @@ NetworkExecutive::Engine.routes.draw do
   match 'channels/:channel_name' => 'network#index', as: :channel
 
   match 'you_tube' => 'components#you_tube', as: :you_tube
+  match 'twitter'  => 'components#twitter',  as: :twitter
 
   match 'lineup' => 'lineup#index', as: :lineup
 

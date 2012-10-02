@@ -21,6 +21,8 @@ Gem::Specification.new do |gem|
   gem.add_dependency             'faye-websocket',  '~> 0.4.6'
   gem.add_dependency             'ice_cube',        '~> 0.8.1'
 
+  gem.add_dependency             'twitter',         '~> 4.0.0'
+
   # TODO: Where should these live?
   gem.add_runtime_dependency     'sass-rails'
   gem.add_runtime_dependency     'uglifier'

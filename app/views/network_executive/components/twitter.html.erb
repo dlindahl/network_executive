@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= stylesheet_link_tag 'network_executive/twitter' %>
+  </head>
+  <body>
+    <img id="background" class="background">
+    <div id="tweet" class="tweet">
+      <div class="tweet-text"></div>
+      <div id="author" class="author"></div>
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <%= javascript_include_tag 'network_executive/twitter' %>
+    <script>
+      new NE.TweetPlayer( '#tweet .tweet-text', <%= @tweets[:statuses].to_json.html_safe %> );
+    </script>
+  </body>
+</html>
