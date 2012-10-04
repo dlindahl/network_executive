@@ -9,6 +9,8 @@ module NetworkExecutive
     def initialize( program, options = {}, &block )
       options.symbolize_keys!
 
+      options[:duration] ||= 24.hours
+
       @start_time, @duration = options[:start_time], options[:duration]
 
       @program = Program.find_by_name program

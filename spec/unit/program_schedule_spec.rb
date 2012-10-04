@@ -21,16 +21,27 @@ describe NetworkExecutive::ProgramSchedule do
 
     context 'with a known program name' do
       let(:known_program) { double('program') }
+      let(:duration) { nil }
 
       before do
         NetworkExecutive::Program.stub( :find_by_name ).and_return known_program
       end
 
-      subject { described_class.new( 'known' ) }
+      subject { described_class.new( 'known', duration:duration ) }
 
       it { should respond_to(:start_time) }
-      it { should respond_to(:duration) }
       its(:program) { should == known_program }
+
+      context 'and no duration specified' do
+        its(:duration) { should == 24.hours }
+      end
+
+      context 'and a duration specified' do
+        let(:duration) { 35.minutes }
+
+        its(:duration) { should == 35.minutes }
+      end
+
     end
   end
 
