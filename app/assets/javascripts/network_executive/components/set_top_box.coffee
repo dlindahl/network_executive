@@ -24,9 +24,9 @@ class @NE.SetTopBox
   establishUplink : ->
     @uplink = new EventSource( "tune_in/#{@channel}" )
 
-    @uplink.addEventListener 'open',    @onUplinkUp,    false
+    @uplink.addEventListener 'open',    @onUplinkUp,      false
     @uplink.addEventListener 'message', @onUplinkMessage, false
-    @uplink.addEventListener 'error',   @onUplinkDown,   false
+    @uplink.addEventListener 'error',   @onUplinkDown,    false
 
   goTo : (url) ->
     @program.setAttribute 'src', url
@@ -48,29 +48,34 @@ class @NE.SetTopBox
     catch e
       payload = {}
 
-    payload.onReady   ?= {}
-    payload.redraw     = not payload.live_feed
-    payload.newProgram = payload.live_feed and payload.url != @program.getAttribute( 'src' )
-
     payload
 
   onUplinkMessage : (e) =>
-    console.log '[message]', e.data
-
-    payload = @parseEvent( e )
+    console.log '[STB::message]', e.data
 
     @hideSmpte()
 
-    if payload.redraw or payload.newProgram
-      onIframeReady = (e) =>
-        payload.onReady.event = 'iframeReadyCallback'
+    payload = @parseEvent( e )
 
-        msg = JSON.stringify( payload.onReady )
+    switch payload.event
+      when   'show:program' then cb = @onProgramShow
+      when 'update:program' then cb = @onProgramUpdate
 
-        e.detail.source.postMessage msg, win.location.origin
+    cb( payload ) if cb
 
-        win.removeEventListener 'iframeReady', onIframeReady
+  onProgramShow : (payload) =>
+    onIframeLoad = (e) =>
+      console.log '[STB::onIframeLoad]'
 
-      win.addEventListener 'iframeReady', onIframeReady, false
+      payload.onLoad.event = 'load:program'
 
-      @goTo payload.url
+      e.detail.source.postMessage payload.onLoad, win.location.origin
+
+      win.removeEventListener 'load:iframe', onIframeLoad
+
+    win.addEventListener 'load:iframe', onIframeLoad, false
+
+    @goTo payload.url
+
+  onProgramUpdate : (payload) ->
+    @program.postMessage payload, win.location.origin

@@ -18,10 +18,11 @@ describe NetworkExecutive::Channel do
     let(:program_double)   { double('program') }
 
     it 'should play the program' do
-      program_double.should_receive :play
+      program_double.should_receive :update
+
       described_class.any_instance.should_receive :push
 
-      subject.show program_double
+      subject.update program_double
     end
   end
 

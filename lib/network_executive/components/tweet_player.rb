@@ -10,19 +10,17 @@ module NetworkExecutive
       extend ActiveSupport::Concern
 
       def url
-        NetworkExecutive::Engine.routes.url_helpers.twitter_path program: name
+        NetworkExecutive::Engine.routes.url_helpers.twitter_path
       end
 
-      def live_feed
-        true
+      def refresh
+        false
       end
 
-      def tweets
-        self.class.tweets
-      end
-
-      def client
-        self.class.client
+      def onload
+        {
+          tweets: self.class.tweets[:statuses]
+        }
       end
 
       module ClassMethods

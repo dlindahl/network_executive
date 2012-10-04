@@ -1,14 +1,8 @@
 #= require ./components/namespace
+#= require ./components/iframe_notifier
 #= require ./components/postman
 #= require ./components/you_tube_player
 
-@onYouTubeIframeAPIReady = =>
-  # Listen for the parent's callback message
-  @addEventListener 'iframeReadyCallback', (e) ->
-    new NE.YTPlayer 'player', e.detail.data
+player = new NE.YTPlayer( 'player' )
 
-  origin = @location.origin
-  msg    = JSON.stringify({ event:'iframeReady' })
-
-  # Tell the parent that we are ready
-  @parent.postMessage msg, origin
+@onYouTubeIframeAPIReady = player.ready

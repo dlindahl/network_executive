@@ -1,21 +1,21 @@
-$ = @$
+win = @
+$   = @$
 
 class @NE.TweetPlayer
-  constructor : (id, tweets) ->
+  constructor : (id) ->
     @tweetEl      = $(id)
     @authorEl     = document.getElementById( 'author' )
     @avatarEl     = document.getElementById( 'avatar' )
     @backgroundEl = document.getElementById( 'background' )
-    @tweets       = tweets
+    @tweets       = []
     @displayTime  = 10000
     @cursor       = 0
 
-    setInterval @render, @displayTime
-
-    @render()
+    win.addEventListener 'load:program',   @onLoad,   false
+    win.addEventListener 'update:program', @onUpdate, false
 
   render : =>
-    tweet = @nextTweet()
+    return unless tweet = @nextTweet()
 
     @renderText   tweet.text
     @renderAuthor tweet.user
@@ -83,3 +83,13 @@ class @NE.TweetPlayer
   # Generates the URL for the original profile image by chopping off the suffix
   renderAvatar : (user) ->
     @backgroundEl.src = user.profile_image_url.replace '_normal', ''
+
+  onLoad : (e) =>
+    @tweets = e.detail.data.tweets
+
+    setInterval @render, @displayTime
+
+    @render()
+
+  onUpdate : (e) =>
+    # ...

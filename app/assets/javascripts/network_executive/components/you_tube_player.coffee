@@ -1,3 +1,5 @@
+win = @
+
 YT_BASE_URL = '//gdata.youtube.com/feeds/api/users/%USER%/uploads/%TAGS%?v=2&alt=json';
 
 # A random sort function
@@ -8,6 +10,11 @@ class @NE.YTPlayer
     @id      = id
     @videos  = []
     @options = options || {}
+
+    win.addEventListener 'load:program', @onLoad, false
+
+  ready : =>
+    @__ready__ = true
 
     @loadChannel()
 
@@ -26,6 +33,8 @@ class @NE.YTPlayer
       url.replace '%TAGS%', ''
 
   loadChannel : ->
+    return unless @__ready__ and @__loaded__
+
     xhr = new XMLHttpRequest()
     xhr.addEventListener 'readystatechange', (e) =>
       if xhr.readyState == 4 && xhr.status == 200
@@ -64,3 +73,13 @@ class @NE.YTPlayer
   onPlayerStateChange : (e) =>
     if e.data == YT.PlayerState.ENDED
       @player.nextVideo()
+
+  onLoad : (e) =>
+    @__loaded__ = true
+
+    payload = e.detail.data
+
+    Object.keys(payload).forEach (k) =>
+      @options[k] = payload[k]
+
+    @loadChannel()

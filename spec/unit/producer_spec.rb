@@ -49,7 +49,7 @@ describe NetworkExecutive::Producer do
     subject { described_class.run_scheduled_programming }
 
     it 'should show all scheduled programming' do
-      scheduled.should_receive :show
+      scheduled.should_receive :update
 
       subject
     end

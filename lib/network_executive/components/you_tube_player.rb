@@ -6,8 +6,8 @@ module NetworkExecutive
         NetworkExecutive::Engine.routes.url_helpers.you_tube_path
       end
 
-      def live_feed
-        true
+      def refresh
+        false
       end
 
     end

@@ -12,6 +12,6 @@ describe NetworkExecutive::Components::YouTubePlayer do
 
   its(:url) { should == '/you_tube' }
 
-  its(:live_feed) { should be_true }
+  its(:refresh) { should be_false }
 
 end

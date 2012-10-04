@@ -13,32 +13,49 @@ module NetworkExecutive
       ''
     end
 
-    # TRUE to disable reloading the page for every tick.
-    # Defaults to FALSE
+    # Will the embedded page be responsible for keeping the content fresh?
     #
-    # Indicates that the embedded page will handle keeping the content
-    # fresh.
-    def live_feed
-      false
+    # * `:auto` - The page will be reloaded the page every minute.
+    # * `FALSE` - The page will not be reloaded
+    #
+    # Defaults to `:auto`
+    def refresh
+      :auto
     end
 
-    # A Hash containing data to pass to embedded page via postMessage
-    # once the IFRAME has indicated that it is ready.
-    def onready
+    # A Hash containing data to pass to the embedded page via postMessage
+    # once the IFRAME has indicated that it has loaded.
+    def onload
       {}
     end
 
-    def as_json
+    # A Hash containing data to pass to the embedded page via postMessage
+    # whenever a program update is issued.
+    def onupdate
+      {}
+    end
+
+    # A Hash containing data to pass to the embedded page via postMessage
+    # whenever a program is initially shown
+    def onshow
       {
-        name:      name,
-        url:       url,
-        onReady:   onready,
-        live_feed: live_feed
+        name:    name,
+        url:     url,
+        onLoad:  onload,
+        refresh: refresh
       }
     end
 
     def play
-      MultiJson.encode( as_json )
+      MultiJson.encode onshow.merge( event:'show:program' )
+    end
+
+    def update
+      if refresh == :auto
+        play
+      else
+        MultiJson.encode onupdate.merge( event:'update:program' )
+      end
     end
 
     class << self

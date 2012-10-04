@@ -12,23 +12,23 @@ describe NetworkExecutive::Components::TweetPlayer do
 
   subject { MyProgram.new }
 
-  its(:url) { should == '/twitter?program=foo' }
+  its(:url) { should == '/twitter' }
 
-  its(:live_feed) { should be_true }
+  its(:refresh) { should be_false }
 
-  describe '#tweets' do
+  describe '#onload' do
+    it 'should include the Twitter search results' do
+      subject.class.should_receive( :tweets ).and_return( statuses: [] )
+
+      subject.onload.should include(:tweets)
+    end
+  end
+
+  describe '.tweets' do
     it 'should delegate to the class' do
       described_class.should_receive :tweets
 
       described_class.tweets
-    end
-  end
-
-  describe '#client' do
-    it 'should delegate to the class' do
-      subject.class.should_receive :client
-
-      subject.client
     end
   end
 
@@ -44,7 +44,7 @@ describe NetworkExecutive::Components::TweetPlayer do
 
       subject.class.configure { |c| arg = c }
 
-      arg.should eq subject.client
+      arg.should eq subject.class.client
     end
   end
 

@@ -12,15 +12,38 @@ describe NetworkExecutive::Program do
 
   its(:name) { should == 'my_program' }
   its(:url)  { should == '' }
-  its(:live_feed) { should be_false }
-  its(:onready) { should == {} }
-  its(:play) { should == %q[{"name":"my_program","url":"","onReady":{},"live_feed":false}] }
+  its(:refresh) { should == :auto }
+  its(:onload) { should == {} }
+  its(:onupdate) { should == {} }
+  its(:play) { should == %q[{"name":"my_program","url":"","onLoad":{},"refresh":"auto","event":"show:program"}] }
 
-  describe '#as_json' do
-    subject { MyProgram.new.as_json }
+  describe '#onshow' do
+    subject { MyProgram.new.onshow }
 
     it { should include( name:'my_program' ) }
     it { should include( url: '' ) }
+    it { should include( onLoad: {} ) }
+    it { should include( refresh: :auto ) }
+  end
+
+  describe '#update' do
+    context 'when #refresh is set to :auto' do
+      it 'should play the program' do
+        subject.stub(:refresh).and_return :auto
+
+        subject.should_receive( :play )
+
+        subject.update
+      end
+    end
+
+    context 'when #refresh is NOT set to :auto' do
+      it 'should return the contents of #onupdate' do
+        subject.stub(:refresh).and_return 'zomg'
+
+        subject.update.should == %q[{"event":"update:program"}]
+      end
+    end
   end
 
   describe '.find_by_name' do

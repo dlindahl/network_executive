@@ -14,8 +14,8 @@ module NetworkExecutive
     end
     alias_method :to_s, :display_name
 
-    def show( program )
-      push program.play
+    def update( program )
+      push program.update
     end
 
     class << self
