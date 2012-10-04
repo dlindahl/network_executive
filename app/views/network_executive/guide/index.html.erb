@@ -1,0 +1,30 @@
+<table>
+  <thead>
+    <tr>
+      <td style="width: <%= guide_header_width %>%;">&nbsp;</td>
+      <% @guide.times.each do |t| %>
+        <th class="guide-time" style="width: <%= guide_header_width %>%;">
+          <%= t.strftime '%l:%M' %>
+        </th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @guide[:channels].each do |ch| %>
+      <tr>
+        <th class="guide-channel">
+          <%= link_to ch[:channel], channel_path(ch[:channel]) %>
+        </th>
+        <td colspan="<%= @guide.times.size %>">
+          <% ch[:programs].each do |program| %>
+            <div class="guide-program-ct" style="width: <%= '%.3f' % program.portion %>%;">
+              <span class="guide-program">
+                <%= program.name.titleize %>
+              </span>
+            </div>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

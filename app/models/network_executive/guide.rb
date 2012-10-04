@@ -1,10 +1,9 @@
-require 'network_executive/lineup_entries'
-
-# Represents a channel's programming line up for a given time span.
+# Represents the currently scheduled programs for all channels in a Network
+# for a given time range.
 module NetworkExecutive
   # TODO: Why does this subclass Hash?
   # TODO: This is an ugly data structure. Refactor.
-  class Lineup < Hash
+  class Guide < Hash
 
     Interval = 15  # In minutes.
     Range    = 1.5 # In hours.
@@ -19,19 +18,12 @@ module NetworkExecutive
     end
 
     def generate
-      with_each_channel do |channel, lineup|
-        cursor  = start_time.dup
-        entries = LineupEntries.new( Range.hours, Interval.minutes )
+      with_each_channel do |channel, guide|
+        programs = channel.whats_on_between? start_time, stop_time, Interval.minutes
 
-        until cursor >= stop_time do
-          entries << channel.whats_on_at?( cursor )
-
-          cursor = cursor + entries.increment
-        end
-
-        lineup << {
-          channel: channel,
-          entries: entries
+        guide << {
+          channel:  channel,
+          programs: programs
         }
       end
     end

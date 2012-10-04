@@ -1,5 +1,13 @@
 describe NetworkExecutive::ProgramSchedule do
 
+  it 'should define an Occurrence structure' do
+    occ = described_class::Occurrence.new
+
+    occ.should respond_to(:start_time)
+    occ.should respond_to(:duration)
+    occ.should respond_to(:end_time)
+  end
+
   describe '#initialize' do
     context 'with an unknown program name' do
       before do
@@ -20,19 +28,59 @@ describe NetworkExecutive::ProgramSchedule do
 
       subject { described_class.new( 'known' ) }
 
+      it { should respond_to(:start_time) }
+      it { should respond_to(:duration) }
       its(:program) { should == known_program }
     end
+  end
 
-    context 'proxy' do
-      before do
-        NetworkExecutive::Program.stub( :find_by_name ).and_return true
-      end
+  describe '#proxy' do
+    before do
+      NetworkExecutive::Program.stub( :find_by_name ).and_return true
+    end
 
-      subject { described_class.new('p').proxy }
+    subject { described_class.new('p').proxy }
 
-      it 'should have a schedule proxy' do
-        subject.should be_a NetworkExecutive::ProgramScheduleProxy
-      end
+    it 'should have a schedule proxy' do
+      subject.should be_a NetworkExecutive::ProgramScheduleProxy
+    end
+
+    it 'should execute the block' do
+      canary = 'alive'
+
+      described_class.new('p'){ canary = 'dead' }.proxy
+
+      subject
+
+      canary.should == 'dead'
+    end
+  end
+
+  describe '#start_time=' do
+    before do
+      NetworkExecutive::Program.stub( :find_by_name ).and_return true
+    end
+
+    it 'should reset the proxy' do
+      time = Time.now
+
+      NetworkExecutive::ProgramScheduleProxy.should_receive(:new).with( time, anything )
+
+      described_class.new('p').start_time = time
+    end
+  end
+
+  describe '#duration=' do
+    before do
+      NetworkExecutive::Program.stub( :find_by_name ).and_return true
+    end
+
+    it 'should reset the proxy' do
+      time = 10.minutes
+
+      NetworkExecutive::ProgramScheduleProxy.should_receive(:new).with( anything, time )
+
+      described_class.new('p').duration = time
     end
   end
 
@@ -49,6 +97,33 @@ describe NetworkExecutive::ProgramSchedule do
       NetworkExecutive::ProgramScheduleProxy.any_instance.should_receive( :occurring_at? ).with Time.now
 
       subject
+    end
+  end
+
+  describe '#occurrence_at' do
+    before do
+      NetworkExecutive::Program.stub( :find_by_name ).and_return true
+
+      NetworkExecutive::ProgramScheduleProxy
+        .any_instance
+        .stub(:occurrences_between)
+        .and_return [ Time.now.end_of_day ]
+    end
+
+    let(:time) { Time.now.end_of_day }
+
+    subject do
+      described_class.new('p', start_time:time, duration:1.minute).occurrence_at time
+    end
+
+    it 'should build an Occurrence' do
+      start_time = time.dup
+      duration   = 1.minute - 1
+      end_time   = start_time + duration
+
+      subject.start_time.should eq start_time
+      subject.duration.should   eq duration
+      subject.end_time.should   eq end_time
     end
   end
 

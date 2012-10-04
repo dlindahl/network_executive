@@ -14,6 +14,10 @@ module NetworkExecutive
       whats_on_at? Time.now
     end
 
+    def whats_on_between?( start, stop, interval = nil )
+      schedule.whats_on_between? start, stop, interval
+    end
+
     def schedule
       self.class.schedule
     end

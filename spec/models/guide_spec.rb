@@ -1,4 +1,4 @@
-describe NetworkExecutive::Lineup do
+describe NetworkExecutive::Guide do
 
   let(:show) do
     show = double('show', program_name:'show 1')
@@ -7,7 +7,7 @@ describe NetworkExecutive::Lineup do
   let(:channel) do
     channel = double('channel', display_name:'channel a').as_null_object
 
-    channel.stub(:whats_on?).and_yield( show ).and_return [ show ]
+    channel.stub(:whats_on_between?).and_return [ show ]
 
     channel
   end
@@ -69,15 +69,7 @@ describe NetworkExecutive::Lineup do
   end
 
   describe '#times' do
-    let(:entries_double) { double('entries', increment: 15.minutes).as_null_object }
-
-    before do
-      NetworkExecutive::LineupEntries.stub(:new).and_return entries_double
-    end
-
     it 'should start with the start time' do
-      ap subject.times
-
       subject.times.first.should eq Time.now
     end
 
@@ -91,12 +83,6 @@ describe NetworkExecutive::Lineup do
   end
 
   describe '#channels' do
-    let(:entries_double) { double('entries', increment: 15.minutes).as_null_object }
-
-    before do
-      NetworkExecutive::LineupEntries.stub(:new).and_return entries_double
-    end
-
     subject { described_class.new[:channels] }
 
     it { should be_an Array }
@@ -105,12 +91,18 @@ describe NetworkExecutive::Lineup do
       subject.first[:channel].should == channel
     end
 
-    it 'should contain a collection of entries' do
-      subject.first[:entries].should == entries_double
+    it 'should contain a collection of programs' do
+      subject.first[:programs].should be_an Array
     end
 
     it 'should ask the channel what is on' do
-      channels.first.should_receive(:whats_on_at?).with( Time.now )
+      args = [
+        Time.now,
+        (Time.now + 1.5.hours),
+        15.minutes
+      ]
+
+      channels.first.should_receive(:whats_on_between?).with( *args )
 
       subject
     end

@@ -31,7 +31,8 @@ RSpec.configure do |config|
 
     Timecop.return
 
-    NetworkExecutive::Network.channels.clear
-    NetworkExecutive::Network.programming.clear
+    # Clear out any non-built-in instances
+    NetworkExecutive::Network.channels.reject! { |c| c.class.name.deconstantize != 'NetworkExecutive' }
+    NetworkExecutive::Network.programming.reject! { |p| p.class.name.deconstantize != 'NetworkExecutive' }
   end
 end

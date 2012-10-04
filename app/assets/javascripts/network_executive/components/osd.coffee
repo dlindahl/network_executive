@@ -4,13 +4,13 @@ MONTHS = 'January February March April May June July August September October No
 
 class @NE.OSD
   constructor : ->
-    @el       = document.getElementById( 'osd' )
-    @lineupEl = document.getElementById( 'lineup' )
+    @el      = document.getElementById( 'osd' )
+    @guideEl = document.getElementById( 'guide' )
 
     @autoHideTimer = null
     @autoHideDelay = 1000
 
-    @lineupUrl = 'lineup.html'
+    @guideUrl = 'guide.html'
 
     document.addEventListener 'mousemove', @onMouseMove
 
@@ -37,16 +37,16 @@ class @NE.OSD
     clearTimeout @autoHideTimer
 
   render : ->
-    @fetchLineup (xhr) =>
-      @lineupEl.innerHTML = xhr.responseText
+    @fetchGuide (xhr) =>
+      @guideEl.innerHTML = xhr.responseText
 
-  fetchLineup : (cb) ->
+  fetchGuide : (cb) ->
     xhr = new XMLHttpRequest();
 
     xhr.addEventListener 'readystatechange', (e) ->
       cb( xhr ) if xhr.readyState == 4 && xhr.status == 200
 
-    xhr.open( 'GET', @lineupUrl, true )
+    xhr.open( 'GET', @guideUrl, true )
     xhr.send()
 
   updateTimestamps : ->

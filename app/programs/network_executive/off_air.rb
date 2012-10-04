@@ -11,7 +11,7 @@ module NetworkExecutive
     end
 
     def duration
-      Lineup::Interval.minutes
+      Guide::Interval.minutes
     end
 
   end

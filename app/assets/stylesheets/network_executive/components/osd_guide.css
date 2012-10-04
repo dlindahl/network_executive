@@ -1,15 +1,15 @@
-#lineup {
+.guide {
   overflow: hidden;
 }
 
-#osd table {
+.guide table {
   width: 100%;
   border-spacing: .25em;
   border-collapse: separate;
   font-size: 1.5em;
 }
 
-#osd th,
+.guide th,
 .guide-program {
   height: 1.2em;
   overflow: hidden;
@@ -37,7 +37,7 @@
   background: rgba(0,0,0,.33);
 }
 
-#osd a {
+.guide a {
   color: #fff;
   text-decoration: none;
 }

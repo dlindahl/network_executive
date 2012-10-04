@@ -79,4 +79,17 @@ describe NetworkExecutive::Scheduling do
     end
   end
 
+  describe '#whats_on_between?' do
+    it 'should ask the ChannelSchedule what is on between two dates' do
+      date_a = Time.now
+      date_b = date_a + 1.5.hours
+
+      args = [ date_a, date_b, nil ]
+
+      NetworkExecutive::ChannelSchedule.any_instance.should_receive(:whats_on_between?).with( *args )
+
+      subject.whats_on_between? date_a, date_b
+    end
+  end
+
 end
