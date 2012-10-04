@@ -2,10 +2,13 @@
 # parsing in the process.
 @addEventListener 'message', (e) =>
   if e.origin == @location.origin
-    try
-      payload = JSON.parse( e.data )
-    catch e
-      payload = {}
+    if e.data instanceof String
+      try
+        payload = JSON.parse( e.data )
+      catch e
+        payload = {}
+    else
+      payload = e.data || {}
 
     if type = payload.event
       delete payload.event
@@ -17,5 +20,4 @@
           originalEvent : e
 
       @dispatchEvent ce
-  
 , false
