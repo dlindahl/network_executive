@@ -14,8 +14,12 @@ module NetworkExecutive
     end
     alias_method :to_s, :display_name
 
-    def update( program )
-      push program.update
+    def play( program )
+      if program.occurs_at?( Time.now )
+        push program.play
+      else
+        push program.update
+      end
     end
 
     class << self

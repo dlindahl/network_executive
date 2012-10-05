@@ -14,15 +14,31 @@ describe NetworkExecutive::Channel do
   its(:display_name) { should == 'my channel' }
   its(:to_s)         { should == 'my channel' }
 
-  describe '#show' do
-    let(:program_double)   { double('program') }
+  describe '#play' do
+    let(:program_double)   { double('program', occurs_at?: starting ) }
 
-    it 'should play the program' do
-      program_double.should_receive :update
+    context 'at a programs start time' do
+      let(:starting) { true }
 
-      described_class.any_instance.should_receive :push
+      it 'should play the program' do
+        program_double.should_receive :play
 
-      subject.update program_double
+        described_class.any_instance.should_receive :push
+
+        subject.play program_double
+      end
+    end
+
+    context 'after a programs start time' do
+      let(:starting) { false }
+
+      it 'should update the program' do
+        program_double.should_receive :update
+
+        described_class.any_instance.should_receive :push
+
+        subject.play program_double
+      end
     end
   end
 

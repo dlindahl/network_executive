@@ -25,7 +25,7 @@ module NetworkExecutive
 
       def run_scheduled_programming
         Network.channels.each do |channel|
-          channel.update channel.whats_on?
+          channel.play channel.whats_on?
         end
       end
 
