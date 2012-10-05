@@ -7,7 +7,7 @@ module NetworkExecutive
     extend ActiveSupport::Concern
 
     def whats_on_at?( time )
-      schedule.find { |sch| sch.whats_on? time } || OffAir.new
+      schedule.find { |sch| sch.whats_on? time } || OffAirSchedule.new
     end
 
     def whats_on?

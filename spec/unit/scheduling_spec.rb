@@ -58,7 +58,7 @@ describe NetworkExecutive::Scheduling do
       end
 
       it 'should return OffAir' do
-        subject.whats_on_at?( Time.now ).should be_a NetworkExecutive::OffAir
+        subject.whats_on_at?( Time.now ).should be_a NetworkExecutive::OffAirSchedule
       end
     end
 
