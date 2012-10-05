@@ -19,7 +19,7 @@
           <% ch[:programs].each do |program| %>
             <div class="guide-program-ct" style="width: <%= '%.3f' % program.portion %>%;">
               <span class="guide-program">
-                <%= program.name.titleize %>
+                <%= program.display_name %>
               </span>
             </div>
           <% end %>
