@@ -11,6 +11,7 @@ describe NetworkExecutive::Program do
   subject { MyProgram.new }
 
   its(:name) { should == 'my_program' }
+  its(:display_name) { should == 'My Program' }
   its(:url)  { should == '' }
   its(:refresh) { should == :auto }
   its(:onload) { should == {} }

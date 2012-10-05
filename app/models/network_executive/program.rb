@@ -9,6 +9,10 @@ module NetworkExecutive
       self.class.name.demodulize.underscore
     end
 
+    def display_name
+      name.titleize
+    end
+
     def url
       ''
     end
