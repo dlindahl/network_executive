@@ -7,10 +7,10 @@ describe NetworkExecutive::ScheduledProgram do
   it { should respond_to(:remainder) }
   it { should respond_to(:portion) }
 
-  describe '#name' do
-    let(:program) { double('program', name:'foo') }
+  describe '#display_name' do
+    let(:program) { double('program', display_name:'foo') }
 
-    subject { described_class.new(program).name }
+    subject { described_class.new(program).display_name }
 
     it { should == 'foo' }
   end

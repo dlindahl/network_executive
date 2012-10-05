@@ -6,8 +6,8 @@ module NetworkExecutive
       @program, @occurrence, @remainder, @portion = *args
     end
 
-    def name
-      program.name
+    def display_name
+      program.display_name
     end
 
     # Extends this scheduled program with another program of the same type.
