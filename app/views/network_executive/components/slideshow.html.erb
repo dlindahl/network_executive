@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= stylesheet_link_tag 'network_executive/slideshow' %>
+    <link href='//fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <figure id="photo_player" class="photo-player">
+      <img id="current_photo" class="current-photo">
+      <figcaption id="caption" class="caption">
+        <div id="title" class="title"></div>
+        <div id="description" class="desc"></div>
+        <div id="photographer" class="photog"></div>
+        <div id="location" class="location"></div>
+      </figcaption>
+    </figure>
+
+    <%= javascript_include_tag 'network_executive/slideshow' %>
+  </body>
+</html>

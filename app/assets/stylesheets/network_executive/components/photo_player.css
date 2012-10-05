@@ -1,0 +1,61 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: #000;
+  overflow: hidden;
+}
+
+.photo-player {
+  margin: 0;
+  text-align: center;
+}
+
+.current-photo {
+  height: 100%;
+  max-height: 100%;
+}
+
+.caption {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1em;
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  text-align: left;
+  font-family: 'Lato', sans-serif;
+}
+
+.caption a {
+  display: none;
+}
+
+.title {
+  margin-bottom: .25em;
+  font-size: 1.75em;
+  font-weight: bold;
+}
+
+.desc {
+  font-size: 1.5em;
+  max-height: 1.8em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; 
+}
+.desc:not(:empty) {
+  padding: .5em 0 .75em;
+}
+
+.photog,
+.location {
+  display: inline-block;
+  font-size: 1.2em;
+}
+
+.photog:not(:empty) + .location:not(:empty):before {
+  content: ' of ';
+}
