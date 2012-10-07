@@ -16,7 +16,16 @@ describe NetworkExecutive::Program do
   its(:refresh) { should == :auto }
   its(:onload) { should == {} }
   its(:onupdate) { should == {} }
-  its(:play) { should == %q[{"name":"my_program","url":"","onLoad":{},"refresh":"auto","event":"show:program"}] }
+
+  describe '#play' do
+    before { EM.stub( :defer ).and_yield }
+
+    it 'should return an EventSource payload' do
+      subject.play do |msg|
+        msg.should == %q[{"name":"my_program","url":"","onLoad":{},"refresh":"auto","event":"show:program"}]
+      end
+    end
+  end
 
   describe '#onshow' do
     subject { MyProgram.new.onshow }
@@ -39,10 +48,14 @@ describe NetworkExecutive::Program do
     end
 
     context 'when #refresh is NOT set to :auto' do
+      before { EM.stub(:defer).and_yield }
+
       it 'should return the contents of #onupdate' do
         subject.stub(:refresh).and_return 'zomg'
 
-        subject.update.should == %q[{"event":"update:program"}]
+        subject.update do |msg|
+          msg.should == %q[{"event":"update:program"}]
+        end
       end
     end
   end

@@ -95,6 +95,38 @@ describe NetworkExecutive::ProgramSchedule do
     end
   end
 
+  describe '#occurs_at?' do
+    before do
+      NetworkExecutive::Program.stub( :find_by_name ).and_return true
+    end
+
+    subject { described_class.new('p').occurs_at? Time.now }
+
+    it 'should delegate to its proxy' do
+      NetworkExecutive::ProgramScheduleProxy.any_instance.should_receive( :occurs_at? )
+
+      subject
+    end
+  end
+
+  describe '#update' do
+    let(:program) { double('program') }
+
+    before do
+      NetworkExecutive::Program.stub( :find_by_name ).and_return program
+    end
+
+    subject { described_class.new('p').update }
+
+    it 'should delegate to its proxy' do
+      program.should_receive( :update )
+
+      subject do
+        ap 'foo'
+      end
+    end
+  end
+
   describe '#whats_on?' do
     before do
       Timecop.freeze

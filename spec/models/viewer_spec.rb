@@ -69,7 +69,7 @@ describe NetworkExecutive::Viewer do
   end
 
   describe '#tune_in' do
-    let(:channel) { double('channel').as_null_object }
+    let(:channel) { double('channel', subscribe:true, play_whats_on:true) }
     let(:stream)  { double('stream').as_null_object }
 
     before do
@@ -92,8 +92,10 @@ describe NetworkExecutive::Viewer do
       stream.onclose.should_not be_nil
     end
 
-    it 'should immiedately play whatever is currently scheduled' do
-      stream.should_receive( :send ).with channel
+    it 'should immediately play whatever is currently scheduled' do
+      channel.should_receive( :play_whats_on ).and_yield( {} )
+
+      stream.should_receive( :send ).with kind_of(Hash)
 
       subject
     end

@@ -34,7 +34,9 @@ module NetworkExecutive
 
       stream.onclose = method(:tune_out).to_proc
 
-      stream.send channel.whats_on?.play
+      channel.play_whats_on do |msg|
+        stream.send msg
+      end
     end
 
     def tune_out( event )

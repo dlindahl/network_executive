@@ -45,7 +45,7 @@ describe NetworkExecutive::Scheduling do
     before { Timecop.freeze }
 
     it 'should return what is on right now' do
-      subject.should_receive( :whats_on_at? ).with( Time.now )
+      subject.should_receive( :whats_on_at? ).with( Time.now.change(sec:0) )
 
       subject.whats_on?
     end

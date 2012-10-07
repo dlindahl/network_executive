@@ -44,6 +44,14 @@ module NetworkExecutive
       proxy.occurring_at? time
     end
 
+    def occurs_at?( time )
+      proxy.occurs_at? time
+    end
+
+    def update( &block )
+      program.update( &block )
+    end
+
     # Returns the scheduled occurrence that matches the specified time
     def occurrence_at( time )
       real_duration = duration - 1

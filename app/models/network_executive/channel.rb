@@ -15,11 +15,19 @@ module NetworkExecutive
     alias_method :to_s, :display_name
 
     def play( program )
-      if program.occurs_at?( Time.now )
-        push program.play
+      if program.occurs_at?( Time.now.change(sec:0) )
+        program.play do |msg|
+          push msg
+        end
       else
-        push program.update
+        program.update do |msg|
+          push msg
+        end
       end
+    end
+
+    def play_whats_on( &block )
+      whats_on?.play( &block )
     end
 
     class << self

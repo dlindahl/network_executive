@@ -50,16 +50,34 @@ module NetworkExecutive
       }
     end
 
-    def play
-      MultiJson.encode onshow.merge( event:'show:program' )
+    def play( &block )
+      Rails.logger.info %Q[Started playing "#{display_name}" at #{Time.now} (refresh: #{refresh})]
+
+      defer = EM::DefaultDeferrable.new
+
+      defer.callback( &block )
+
+      EM.defer do
+        defer.succeed MultiJson.encode( onshow.merge( event:'show:program' ) )
+      end
+
+      defer
     end
 
-    def update
-      if refresh == :auto
-        play
-      else
+    def update( &block )
+      return play( &block ) if refresh == :auto
+
+      Rails.logger.info %Q[Started updating "#{display_name}" at #{Time.now}]
+
+      defer = EM::DefaultDeferrable.new
+
+      defer.callback( &block )
+
+      EM.defer do
         MultiJson.encode onupdate.merge( event:'update:program' )
       end
+
+      defer
     end
 
     class << self

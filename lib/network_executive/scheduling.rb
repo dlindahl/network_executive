@@ -11,7 +11,7 @@ module NetworkExecutive
     end
 
     def whats_on?
-      whats_on_at? Time.now
+      whats_on_at? Time.now.change(sec:0)
     end
 
     def whats_on_between?( start, stop, interval = nil )
