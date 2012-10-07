@@ -24,6 +24,8 @@ module NetworkExecutive
       end
 
       def run_scheduled_programming
+        Rails.logger.info "\n\n"
+
         Network.channels.each do |channel|
           channel.play channel.whats_on?
         end
