@@ -69,7 +69,7 @@ class @NE.SetTopBox
 
       payload.onLoad.event = 'load:program'
 
-      e.detail.source.postMessage payload.onLoad, win.location.origin
+      e.detail.source.postMessage payload.onLoad, '*'
 
       win.removeEventListener 'load:iframe', onIframeLoad
 
@@ -78,4 +78,4 @@ class @NE.SetTopBox
     @goTo payload.url
 
   onProgramUpdate : (payload) ->
-    @program.postMessage payload, win.location.origin
+    @program.postMessage payload, '*'

@@ -3,12 +3,12 @@
 
 # Tell the parent that we are ready
 @addEventListener 'DOMContentLoaded', (e) =>
-  @parent.postMessage { event:'domloaded:iframe' }, @location.origin
+  @parent.postMessage { event:'domloaded:iframe' }, '*'
 , false
 
 events = [ 'load', 'error', 'change', 'hashchange', 'resize', 'pageshow', 'pagehide', 'beforeunload' ]
 
 events.forEach (evt) =>
   @addEventListener evt, (e) =>
-    @parent.postMessage { event:"#{evt}:iframe" }, @location.origin
+    @parent.postMessage { event:"#{evt}:iframe" }, '*'
   , false
