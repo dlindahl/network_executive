@@ -109,7 +109,7 @@ describe NetworkExecutive::ProgramSchedule do
     end
   end
 
-  describe '#play', :focus do
+  describe '#play' do
     let(:program) { double('program') }
 
     before do
@@ -127,7 +127,7 @@ describe NetworkExecutive::ProgramSchedule do
     end
   end
 
-  describe '#update', :focus do
+  describe '#update' do
     let(:program) { double('program') }
 
     before do
