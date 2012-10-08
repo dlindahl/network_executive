@@ -109,7 +109,25 @@ describe NetworkExecutive::ProgramSchedule do
     end
   end
 
-  describe '#update' do
+  describe '#play', :focus do
+    let(:program) { double('program') }
+
+    before do
+      NetworkExecutive::Program.stub( :find_by_name ).and_return program
+    end
+
+    subject { described_class.new('p').play }
+
+    it 'should delegate to its proxy' do
+      program.should_receive( :play )
+
+      subject do
+        # ...
+      end
+    end
+  end
+
+  describe '#update', :focus do
     let(:program) { double('program') }
 
     before do
@@ -122,7 +140,7 @@ describe NetworkExecutive::ProgramSchedule do
       program.should_receive( :update )
 
       subject do
-        ap 'foo'
+        # ...
       end
     end
   end

@@ -48,6 +48,10 @@ module NetworkExecutive
       proxy.occurs_at? time
     end
 
+    def play( &block )
+      program.play( &block )
+    end
+
     def update( &block )
       program.update( &block )
     end
