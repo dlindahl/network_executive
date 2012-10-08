@@ -24,6 +24,8 @@ class @NE.SetTopBox
   establishUplink : ->
     @uplink = new EventSource( "tune_in/#{@channel}" )
 
+    @uplink.addEventListener 'message', @purgeOnIframeLoad, false
+
     @uplink.addEventListener 'open',    @onUplinkUp,      false
     @uplink.addEventListener 'message', @onUplinkMessage, false
     @uplink.addEventListener 'error',   @onUplinkDown,    false
@@ -71,7 +73,7 @@ class @NE.SetTopBox
 
       e.detail.source.postMessage payload.onLoad, '*'
 
-      win.removeEventListener 'load:iframe', onIframeLoad
+    @onIframeLoad = onIframeLoad
 
     win.addEventListener 'load:iframe', onIframeLoad, false
 
@@ -79,3 +81,8 @@ class @NE.SetTopBox
 
   onProgramUpdate : (payload) ->
     @program.postMessage payload, '*'
+
+  purgeOnIframeLoad : (e) =>
+    win.removeEventListener 'load:iframe', @onIframeLoad, false
+
+    @onIframeLoad = null
