@@ -3,7 +3,7 @@ require 'network_executive/scheduling'
 
 module NetworkExecutive
   class Channel < EventMachine::Channel
-    include Scheduling
+    include NetworkExecutive::Scheduling
 
     def name
       self.class.name.demodulize.underscore
