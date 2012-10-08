@@ -13,7 +13,7 @@
     <% @guide[:channels].each do |ch| %>
       <tr>
         <th class="guide-channel">
-          <%= link_to ch[:channel], channel_path(ch[:channel]) %>
+          <%= link_to ch[:channel].display_name, channel_path( ch[:channel] ) %>
         </th>
         <td colspan="<%= @guide.times.size %>">
           <% ch[:programs].each do |program| %>

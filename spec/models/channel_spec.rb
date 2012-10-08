@@ -11,8 +11,8 @@ describe NetworkExecutive::Channel do
   subject { MyChannel.new }
 
   its(:name)         { should == 'my_channel' }
+  its(:to_s)         { should == 'my_channel' }
   its(:display_name) { should == 'my channel' }
-  its(:to_s)         { should == 'my channel' }
 
   describe '#play' do
     let(:program_double) { double('program', occurs_at?: starting ) }

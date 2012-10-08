@@ -8,11 +8,11 @@ module NetworkExecutive
     def name
       self.class.name.demodulize.underscore
     end
+    alias_method :to_s, :name
 
     def display_name
       name.gsub %r{_}, ' '
     end
-    alias_method :to_s, :display_name
 
     def play( program )
       if program.occurs_at?( Time.now.change(sec:0) )
