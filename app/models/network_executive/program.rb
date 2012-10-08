@@ -58,7 +58,10 @@ module NetworkExecutive
       defer.callback( &block )
 
       EM.defer do
-        defer.succeed MultiJson.encode( onshow.merge( event:'show:program' ) )
+        payload = onshow.merge( event:'show:program' )
+        json    = MultiJson.encode( payload )
+
+        defer.succeed json
       end
 
       defer
@@ -74,7 +77,10 @@ module NetworkExecutive
       defer.callback( &block )
 
       EM.defer do
-        MultiJson.encode onupdate.merge( event:'update:program' )
+        payload = onupdate.merge( event:'update:program' )
+        json    = MultiJson.encode( payload )
+
+        defer.succeed json
       end
 
       defer

@@ -21,9 +21,11 @@ describe NetworkExecutive::Program do
     before { EM.stub( :defer ).and_yield }
 
     it 'should return an EventSource payload' do
-      subject.play do |msg|
-        msg.should == %q[{"name":"my_program","url":"","onLoad":{},"refresh":"auto","event":"show:program"}]
-      end
+      msg = nil
+
+      subject.play { |m| msg = m }
+
+      msg.should == %q[{"name":"my_program","url":"","onLoad":{},"refresh":"auto","event":"show:program"}]
     end
   end
 
@@ -53,9 +55,11 @@ describe NetworkExecutive::Program do
       it 'should return the contents of #onupdate' do
         subject.stub(:refresh).and_return 'zomg'
 
-        subject.update do |msg|
-          msg.should == %q[{"event":"update:program"}]
-        end
+        msg = nil
+
+        subject.update { |m| msg = m }
+
+        msg.should == %q[{"event":"update:program"}]
       end
     end
   end
