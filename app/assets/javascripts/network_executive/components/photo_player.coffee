@@ -1,6 +1,6 @@
 win = @
 
-class @NE.PhotoPlayer
+class @NE.PhotoPlayer extends @NE.CollectionPlayer
   constructor : (photoId, titleId, descId, photogId, locId ) ->
     @photo        = document.getElementById( photoId )
     @title        = document.getElementById( titleId )
@@ -8,15 +8,9 @@ class @NE.PhotoPlayer
     @photographer = document.getElementById( photogId )
     @location     = document.getElementById( locId )
 
-    @photos      = []
-    @displayTime = 10000
-    @cursor      = 0
+    super()
 
-    win.addEventListener 'load:program', @onLoad, false
-
-  render : =>
-    return unless photo = @nextPhoto()
-
+  renderItem : (photo) =>
     @renderPhoto       photo.image_url
     @renderTitle       photo.title
     @renderDescription photo.description
@@ -38,18 +32,5 @@ class @NE.PhotoPlayer
   renderLocation : (location) ->
     @location.innerHTML = location
 
-  nextPhoto : ->
-    @cursor = 0 if @cursor > @photos.length - 1
-
-    p = @photos[@cursor]
-
-    @cursor++
-
-    p
-
-  onLoad : (e) =>
-    @photos = e.detail.data.photos
-
-    setInterval @render, @displayTime
-
-    @render()
+  getItems : (e) ->
+    e.detail.data.items

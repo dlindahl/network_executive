@@ -1,34 +1,19 @@
 win = @
 $   = @$
 
-class @NE.TweetPlayer
+class @NE.TweetPlayer extends @NE.CollectionPlayer
   constructor : (id) ->
     @tweetEl      = $(id)
     @authorEl     = document.getElementById( 'author' )
     @avatarEl     = document.getElementById( 'avatar' )
     @backgroundEl = document.getElementById( 'background' )
-    @tweets       = []
-    @displayTime  = 10000
-    @cursor       = 0
 
-    win.addEventListener 'load:program',   @onLoad,   false
-    win.addEventListener 'update:program', @onUpdate, false
+    super()
 
-  render : =>
-    return unless tweet = @nextTweet()
-
-    @renderText   tweet.text
-    @renderAuthor tweet.user
-    @renderAvatar tweet.user
-
-  nextTweet : ->
-    @cursor = 0 if @cursor > @tweets.length - 1
-
-    t = @tweets[@cursor]
-
-    @cursor++
-
-    t
+  renderItem : (item) =>
+    @renderText   item.text
+    @renderAuthor item.user
+    @renderAvatar item.user
 
   renderText : (text) ->
     buffer  = []
@@ -84,12 +69,5 @@ class @NE.TweetPlayer
   renderAvatar : (user) ->
     @backgroundEl.src = user.profile_image_url.replace '_normal', ''
 
-  onLoad : (e) =>
-    @tweets = e.detail.data.tweets
-
-    setInterval @render, @displayTime
-
-    @render()
-
-  onUpdate : (e) =>
-    # ...
+  getItems : (e) ->
+    e.detail.data.tweets

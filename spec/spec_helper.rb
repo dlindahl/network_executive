@@ -12,6 +12,7 @@ require 'rails/test_help'
 require 'rspec/rails'
 require 'fakefs/spec_helpers'
 require 'timecop'
+require 'webmock/rspec'
 
 Rails.backtrace_cleaner.remove_silencers!
 

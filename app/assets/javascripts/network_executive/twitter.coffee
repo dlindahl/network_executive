@@ -1,6 +1,4 @@
-#= require ./components/namespace
-#= require ./components/iframe_notifier
-#= require ./components/postman
+#= require ./collection_player
 #= require ./components/tweet_player
 #= require bigtext
 

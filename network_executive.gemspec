@@ -17,11 +17,14 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  gem.add_dependency             'activesupport',   '~> 3.2.0'
-  gem.add_dependency             'faye-websocket',  '~> 0.4.6'
-  gem.add_dependency             'ice_cube',        '~> 0.8.1'
-
-  gem.add_dependency             'twitter',         '~> 4.0.0'
+  gem.add_dependency             'activesupport',      '~> 3.2.0'
+  gem.add_dependency             'faye-websocket',     '~> 0.4.6'
+  gem.add_dependency             'ice_cube',           '~> 0.8.1'
+  gem.add_dependency             'twitter',            '~> 4.0.0'
+  gem.add_dependency             'faraday',            '~> 0.8.4'
+  gem.add_dependency             'faraday_middleware', '~> 0.8.8'
+  gem.add_dependency             'multi_xml',          '~> 0.5.1'
+  gem.add_dependency             'addressable',        '~> 2.3.2'
 
   # TODO: Where should these live?
   gem.add_runtime_dependency     'sass-rails'
@@ -29,8 +32,9 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency     'coffee-rails'
 
   gem.add_development_dependency 'awesome_print'
-  gem.add_development_dependency 'rails',           '~> 3.2.8'
-  gem.add_development_dependency 'rspec-rails',     '~> 2.11'
-  gem.add_development_dependency 'fakefs',          '~> 0.4.0'
-  gem.add_development_dependency 'timecop',         '~> 0.4.5'
+  gem.add_development_dependency 'rails',              '~> 3.2.8'
+  gem.add_development_dependency 'rspec-rails',        '~> 2.11'
+  gem.add_development_dependency 'fakefs',             '~> 0.4.0'
+  gem.add_development_dependency 'timecop',            '~> 0.4.5'
+  gem.add_development_dependency 'webmock',            '~> 1.8.11'
 end
