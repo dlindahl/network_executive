@@ -65,6 +65,26 @@ describe NetworkExecutive::ProgramSchedule do
 
       canary.should == 'dead'
     end
+
+    context 'with a start_time' do
+      subject { described_class.new('p', start_time:start_time).proxy }
+
+      context 'that is a string' do
+        let(:start_time) { '11:00' }
+
+        it 'should parse the start_time' do
+          subject.start_time.strftime('%H:%M').should == '11:00'
+        end
+      end
+
+      context 'that is a Time instance' do
+        let(:start_time) { Time.current }
+
+        it 'should parse the start_time' do
+          subject.start_time.should == start_time
+        end
+      end
+    end
   end
 
   describe '#start_time=' do

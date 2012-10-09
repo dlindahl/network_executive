@@ -7,11 +7,7 @@ module NetworkExecutive
     Occurrence = Struct.new('Occurrence', :start_time, :duration, :end_time)
 
     def initialize( program, options = {}, &block )
-      options.symbolize_keys!
-
-      options[:duration] ||= 24.hours
-
-      @start_time, @duration = options[:start_time], options[:duration]
+      parse_options options
 
       @program = Program.find_by_name program
 
@@ -85,6 +81,22 @@ module NetworkExecutive
     end
 
   private
+
+    def parse_options( options )
+      options.symbolize_keys!
+
+      options[:duration] ||= 24.hours
+
+      @duration = options[:duration]
+
+      if options[:start_time]
+        if options[:start_time].is_a? String
+          @start_time = Time.parse( options[:start_time] )
+        else
+          @start_time = options[:start_time]
+        end
+      end
+    end
 
     def reset_proxy!
       @proxy = nil
