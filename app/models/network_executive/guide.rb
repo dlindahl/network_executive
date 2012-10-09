@@ -36,7 +36,6 @@ module NetworkExecutive
       @stop_time = time.floor( Interval.minutes )
     end
 
-    # TODO: Add test
     def times
       @times ||= begin
         cursor = start_time.dup
