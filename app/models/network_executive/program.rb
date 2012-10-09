@@ -55,16 +55,13 @@ module NetworkExecutive
 
       defer = EM::DefaultDeferrable.new
 
-      defer.callback do |payload|
-        json = MultiJson.encode( payload )
-
-        block.call json
-      end
+      defer.callback( &block )
 
       EM.defer do
         payload = onshow.merge( event:'show:program' )
+        json    = MultiJson.encode( payload )
 
-        defer.succeed payload
+        defer.succeed json
       end
 
       defer
@@ -77,16 +74,13 @@ module NetworkExecutive
 
       defer = EM::DefaultDeferrable.new
 
-      defer.callback do |payload|
-        json = MultiJson.encode( payload )
-
-        block.call json
-      end
+      defer.callback( &block )
 
       EM.defer do
         payload = onupdate.merge( event:'update:program' )
+        json    = MultiJson.encode( payload )
 
-        defer.succeed payload
+        defer.succeed json
       end
 
       defer
