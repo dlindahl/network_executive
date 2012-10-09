@@ -1,5 +1,3 @@
-require 'multi_json'
-
 require 'network_executive/network'
 
 module NetworkExecutive
@@ -59,7 +57,7 @@ module NetworkExecutive
 
       EM.defer do
         payload = onshow.merge( event:'show:program' )
-        json    = MultiJson.encode( payload )
+        json    = ActiveSupport::JSON.encode( payload )
 
         defer.succeed json
       end
@@ -78,7 +76,7 @@ module NetworkExecutive
 
       EM.defer do
         payload = onupdate.merge( event:'update:program' )
-        json    = MultiJson.encode( payload )
+        json    = ActiveSupport::JSON.encode( payload )
 
         defer.succeed json
       end
