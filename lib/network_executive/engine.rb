@@ -42,6 +42,11 @@ module NetworkExecutive
       ]
     end
 
+    # This prevents the Rake tasks from executing twice.
+    # TODO: Why is this neccessary. Seems awfully hackish and wrong.
+    def load_tasks(*)
+    end
+
   private
 
     def eager_load_models_in( sub_path, app )

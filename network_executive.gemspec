@@ -27,6 +27,8 @@ Gem::Specification.new do |gem|
   gem.add_dependency             'multi_xml',          '~> 0.5.1'
   gem.add_dependency             'addressable',        '~> 2.3.2'
 
+  gem.add_dependency             'terminal-table',     '~> 1.4.5'
+
   # TODO: Where should these live?
   gem.add_runtime_dependency     'sass-rails'
   gem.add_runtime_dependency     'uglifier'
