@@ -12,7 +12,7 @@ module NetworkExecutive
 
     def initialize( start = nil, stop = nil )
       self.start_time = start || Time.current
-      self.stop_time  = stop  || Time.current + Range.hours
+      self.stop_time  = stop  || start_time + Range.hours
 
       self[:channels] = generate
     end
