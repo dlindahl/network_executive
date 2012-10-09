@@ -45,7 +45,7 @@ describe NetworkExecutive::Scheduling do
     before { Timecop.freeze }
 
     it 'should return what is on right now' do
-      subject.should_receive( :whats_on_at? ).with( Time.now.change(sec:0) )
+      subject.should_receive( :whats_on_at? ).with( Time.current.change(sec:0) )
 
       subject.whats_on?
     end
@@ -58,7 +58,7 @@ describe NetworkExecutive::Scheduling do
       end
 
       it 'should return OffAir' do
-        subject.whats_on_at?( Time.now ).should be_a NetworkExecutive::OffAirSchedule
+        subject.whats_on_at?( Time.current ).should be_a NetworkExecutive::OffAirSchedule
       end
     end
 
@@ -74,14 +74,14 @@ describe NetworkExecutive::Scheduling do
       end
 
       it 'should return the scheduled program' do
-        subject.whats_on_at?( Time.now ).should == prog_2
+        subject.whats_on_at?( Time.current ).should == prog_2
       end
     end
   end
 
   describe '#whats_on_between?' do
     it 'should ask the ChannelSchedule what is on between two dates' do
-      date_a = Time.now
+      date_a = Time.current
       date_b = date_a + 1.5.hours
 
       args = [ date_a, date_b, nil ]

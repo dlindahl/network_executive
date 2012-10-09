@@ -29,7 +29,7 @@ module NetworkExecutive
     end
 
     def caching_params
-      current_time_slot = Time.now.floor( Guide::Interval.minutes )
+      current_time_slot = Time.current.floor( Guide::Interval.minutes )
 
       {
         last_modified: current_time_slot,

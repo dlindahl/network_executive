@@ -73,7 +73,7 @@ describe NetworkExecutive::ProgramSchedule do
     end
 
     it 'should reset the proxy' do
-      time = Time.now
+      time = Time.current
 
       NetworkExecutive::ProgramScheduleProxy.should_receive(:new).with( time, anything )
 
@@ -100,7 +100,7 @@ describe NetworkExecutive::ProgramSchedule do
       NetworkExecutive::Program.stub( :find_by_name ).and_return true
     end
 
-    subject { described_class.new('p').occurs_at? Time.now }
+    subject { described_class.new('p').occurs_at? Time.current }
 
     it 'should delegate to its proxy' do
       NetworkExecutive::ProgramScheduleProxy.any_instance.should_receive( :occurs_at? )
@@ -155,7 +155,7 @@ describe NetworkExecutive::ProgramSchedule do
     subject { described_class.new( 'p').whats_on? }
 
     it 'should indicate if the schedule has anything occuring at the given time' do
-      NetworkExecutive::ProgramScheduleProxy.any_instance.should_receive( :occurring_at? ).with Time.now
+      NetworkExecutive::ProgramScheduleProxy.any_instance.should_receive( :occurring_at? ).with Time.current
 
       subject
     end
@@ -168,10 +168,10 @@ describe NetworkExecutive::ProgramSchedule do
       NetworkExecutive::ProgramScheduleProxy
         .any_instance
         .stub(:occurrences_between)
-        .and_return [ Time.now.end_of_day ]
+        .and_return [ Time.current.end_of_day ]
     end
 
-    let(:time) { Time.now.end_of_day }
+    let(:time) { Time.current.end_of_day }
 
     subject do
       described_class.new('p', start_time:time, duration:1.minute).occurrence_at time

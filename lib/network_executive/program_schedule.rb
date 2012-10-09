@@ -40,7 +40,7 @@ module NetworkExecutive
       d
     end
 
-    def whats_on?( time = Time.now )
+    def whats_on?( time = Time.current )
       proxy.occurring_at? time
     end
 

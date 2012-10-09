@@ -19,7 +19,7 @@ describe NetworkExecutive::Guide do
   end
 
   before do
-    Timecop.freeze Time.now.change hour:12, min:0, sec:0
+    Timecop.freeze Time.current.change hour:12, min:0, sec:0
 
     NetworkExecutive::Network.stub( :channels ).and_return channels
   end
@@ -31,17 +31,17 @@ describe NetworkExecutive::Guide do
       subject { described_class.new.start_time }
 
       it 'should default to now' do
-        subject.should eq Time.now
+        subject.should eq Time.current
       end
     end
 
     context 'an explicit value' do
-      let(:start) { Time.now.change hour:11, min:47, sec:54 }
+      let(:start) { Time.current.change hour:11, min:47, sec:54 }
 
       subject { described_class.new( start ).start_time }
 
       it 'should be rounded' do
-        subject.should eq Time.now.change hour:11, min:45, sec:0
+        subject.should eq Time.current.change hour:11, min:45, sec:0
       end
     end
   end
@@ -58,19 +58,19 @@ describe NetworkExecutive::Guide do
     end
 
     context 'an explicit value' do
-      let(:stop) { Time.now.change hour:13, min:47, sec:54 }
+      let(:stop) { Time.current.change hour:13, min:47, sec:54 }
 
       subject { described_class.new( nil, stop ).stop_time }
 
       it 'should be rounded' do
-        subject.should eq Time.now.change hour:13, min:45, sec:0
+        subject.should eq Time.current.change hour:13, min:45, sec:0
       end
     end
   end
 
   describe '#times' do
     it 'should start with the start time' do
-      subject.times.first.should eq Time.now
+      subject.times.first.should eq Time.current
     end
 
     it 'should contain 15 minute intervals' do
@@ -78,7 +78,7 @@ describe NetworkExecutive::Guide do
     end
 
     it 'should end with 1.5 hours after start time' do
-      subject.times.last.should eq Time.now + 1.5.hours - 15.minutes
+      subject.times.last.should eq Time.current + 1.5.hours - 15.minutes
     end
   end
 
@@ -97,8 +97,8 @@ describe NetworkExecutive::Guide do
 
     it 'should ask the channel what is on' do
       args = [
-        Time.now,
-        (Time.now + 1.5.hours),
+        Time.current,
+        (Time.current + 1.5.hours),
         15.minutes
       ]
 

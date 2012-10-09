@@ -11,7 +11,7 @@ module NetworkExecutive
     attr_accessor :start_time, :duration
 
     def initialize( start_time = nil, duration = nil, &block )
-      start_time ||= Time.now.beginning_of_day
+      start_time ||= Time.current.beginning_of_day
       duration   ||= 24.hours
 
       @start_time, @duration = start_time, duration

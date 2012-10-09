@@ -8,7 +8,7 @@ describe NetworkExecutive::OffAirSchedule do
   end
 
   describe '#occurrence_at' do
-    let(:time) { Time.now.change(min:0, sec:0) }
+    let(:time) { Time.current.change(min:0, sec:0) }
 
     subject { described_class.new.occurrence_at time }
 

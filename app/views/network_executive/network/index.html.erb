@@ -20,10 +20,10 @@
           <%= network_name %>
           <aside class="osd-now">
             <time class="osd-now-time">
-              <%= Time.now.strftime( '%l:%M%P') %>
+              <%= Time.current.strftime( '%l:%M%P') %>
             </time>
             <small class="osd-now-date">
-              <%= Time.now.strftime( '%B %e, %Y' ) %>
+              <%= Time.current.strftime( '%B %e, %Y' ) %>
             </small>
           </aside>
         </h1>

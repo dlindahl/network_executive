@@ -15,7 +15,7 @@ describe NetworkExecutive::ProgramScheduleProxy do
 
       context 'when unspecified' do
         it 'should default to the beginning of the day' do
-          subject.start_time.should == Time.now.beginning_of_day
+          subject.start_time.should == Time.current.beginning_of_day
         end
       end
     end

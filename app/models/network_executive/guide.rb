@@ -11,8 +11,8 @@ module NetworkExecutive
     attr_accessor :start_time, :stop_time
 
     def initialize( start = nil, stop = nil )
-      self.start_time = start || Time.now
-      self.stop_time  = stop  || Time.now + Range.hours
+      self.start_time = start || Time.current
+      self.stop_time  = stop  || Time.current + Range.hours
 
       self[:channels] = generate
     end

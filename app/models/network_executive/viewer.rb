@@ -28,7 +28,7 @@ module NetworkExecutive
     end
 
     def tune_in
-      Rails.logger.debug "Tuning in to the #{channel} channel for #{ip} at #{Time.now}"
+      Rails.logger.debug "Tuning in to the #{channel} channel for #{ip} at #{Time.current}"
 
       self.id = channel.subscribe { |msg| stream.send msg }
 
@@ -40,7 +40,7 @@ module NetworkExecutive
     end
 
     def tune_out( event )
-      Rails.logger.debug "Tuning out of the #{channel} channel for #{ip} at #{Time.now}"
+      Rails.logger.debug "Tuning out of the #{channel} channel for #{ip} at #{Time.current}"
 
       channel.unsubscribe id
 
@@ -61,7 +61,7 @@ module NetworkExecutive
       self.heartbeat = EM.add_periodic_timer( 30 ) do
         stream.ping
 
-        Rails.logger.debug "Completed PING for #{ip} on the #{channel} channel at #{Time.now}"
+        Rails.logger.debug "Completed PING for #{ip} on the #{channel} channel at #{Time.current}"
       end
     end
 

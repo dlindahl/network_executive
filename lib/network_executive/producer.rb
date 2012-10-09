@@ -8,7 +8,7 @@ module NetworkExecutive
         # Run whatever should be on right now
         run_scheduled_programming
 
-        now = Time.now
+        now = Time.current
 
         next_tick = ( now.change( sec:0 ) + 1.minute ) - now
 

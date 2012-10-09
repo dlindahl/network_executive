@@ -15,7 +15,7 @@ module NetworkExecutive
     end
 
     def play( program )
-      if program.occurs_at?( Time.now.change(sec:0) )
+      if program.occurs_at?( Time.current.change(sec:0) )
         program.play do |msg|
           push msg
         end

@@ -23,7 +23,7 @@ describe NetworkExecutive::ScheduledProgram do
     end
 
     context 'with the same program type' do
-      let(:end_time)   { Time.now }
+      let(:end_time)   { Time.current }
       let(:program_a)  { OpenStruct.new( duration:59.seconds ) }
       let(:occurrence) { OpenStruct.new( duration:59.seconds, end_time:end_time ) }
       let(:program_b)  { OpenStruct.new( duration:59.seconds ) }

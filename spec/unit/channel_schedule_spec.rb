@@ -1,6 +1,6 @@
 describe NetworkExecutive::ChannelSchedule do
 
-  let(:time)     { Time.now.change(min:45, sec:0) }
+  let(:time)     { Time.current.change(min:45, sec:0) }
   let(:interval) { 15.minutes }
   let(:schedule) { described_class.new }
 

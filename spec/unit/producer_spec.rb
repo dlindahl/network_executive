@@ -14,7 +14,7 @@ describe NetworkExecutive::Producer do
     end
 
     it 'should wait for the next 1-minute interval' do
-      Timecop.freeze Time.now.change( sec:59 )
+      Timecop.freeze Time.current.change( sec:59 )
 
       EM.should_receive( :add_timer ).with 1
 

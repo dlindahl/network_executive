@@ -49,7 +49,7 @@ module NetworkExecutive
     end
 
     def play( &block )
-      Rails.logger.info %Q[Started playing "#{display_name}" at #{Time.now} (refresh: #{refresh})]
+      Rails.logger.info %Q[Started playing "#{display_name}" at #{Time.current} (refresh: #{refresh})]
 
       defer = EM::DefaultDeferrable.new
 
@@ -68,7 +68,7 @@ module NetworkExecutive
     def update( &block )
       return play( &block ) if refresh == :auto
 
-      Rails.logger.info %Q[Started updating "#{display_name}" at #{Time.now}]
+      Rails.logger.info %Q[Started updating "#{display_name}" at #{Time.current}]
 
       defer = EM::DefaultDeferrable.new
 
