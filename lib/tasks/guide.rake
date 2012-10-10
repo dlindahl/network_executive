@@ -1,11 +1,14 @@
 require 'terminal-table'
 
-desc 'Generate a Channel Guide'
+desc 'Generate a Channel Guide (options: start=14:00 stop="Oct 10, 2013 14:30")'
 namespace :network_executive do
   task :guide => :environment do
     format = '%H:%M'
 
-    guide = NetworkExecutive::Guide.new
+    start = Time.parse( ENV['start'] ) if ENV['start']
+    stop  = Time.parse( ENV['stop'] )  if ENV['stop']
+
+    guide = NetworkExecutive::Guide.new start, stop
 
     start_time = guide.start_time.strftime( '%B %-e, %Y between %H:%M' )
     stop_time = guide.stop_time.strftime( '%H:%M' )
