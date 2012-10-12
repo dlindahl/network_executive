@@ -12,7 +12,7 @@ class @NE.OSD
 
     @guideUrl = 'guide.html'
 
-    document.addEventListener 'mousemove', @onMouseMove
+    # document.addEventListener 'mousemove', @onMouseMove
 
     setInterval( @updateTimestamps, 1000 )
 
